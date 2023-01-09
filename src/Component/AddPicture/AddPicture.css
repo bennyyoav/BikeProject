@@ -1,0 +1,41 @@
+.addPicture
+{
+    padding-top: 10px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    background: rgba(234, 189, 189, 0.742);
+    width:50%; 
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: solid black 1px;
+
+}
+.inputClass 
+{
+    display: flex;
+    align-items: center;
+
+  
+}
+.inputClass label
+{
+    width:20%;
+    text-align: left;
+  
+}
+
+.inputClass input 
+{
+    width: 80%;
+    text-align: right;
+    height: 40px;
+  
+}
+.inputClass select
+{
+    width: 20%;
+    height: 40px;
+}

@@ -1,0 +1,32 @@
+.NavBar
+{
+    display: flex;
+    padding: 10px;
+    background-color: aqua;
+  
+}
+
+.NavBar .bikeIcon
+{
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 70px;
+    
+}
+.NavBar .navigates
+{
+    display: flex;
+    align-items: center;
+    
+}
+.NavBar .navigates div
+{
+    margin-left: 20px;
+    
+}
+.NavBar> .navigates div:hover
+{
+    background-color: lightgreen;
+    
+}

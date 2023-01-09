@@ -1,0 +1,16 @@
+#labelAndSelect
+{
+    padding: 2px;
+    font-size: 1.2rem;
+    box-sizing: 2rem;
+    background-color: rgba(43, 186, 226, 0.208);
+   
+    
+}
+#screenToSelect
+{
+    font-size: 1rem;   
+     border-radius: 30px;
+     padding-left: 5px;
+     padding-right: 5px;
+}

@@ -1,0 +1,42 @@
+.myImage
+{
+    width: 450px;
+    height: 300px;
+    
+    padding: 10px;
+    border: green 2px solid;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+h1
+{
+    font-style: italic;
+    font-size: 25px;
+   
+   
+   
+
+}
+.parags
+{   
+    display: flex;
+    justify-content: center;
+}
+
+.parags .parg1, .parags .parag2
+{
+    width:30%;
+    border:green solid;
+    margin:50px;
+    padding: 20px;
+    
+}
+.parags .parag2 li
+{
+    margin: 50px;
+}
+ul
+{
+    list-style-type: none;
+}

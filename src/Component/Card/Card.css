@@ -1,0 +1,75 @@
+.Card
+{
+    position: relative;
+    
+}
+.Card img{
+    border-radius:30px;
+    width:500px ;
+    height: 350px;
+    margin: 3px;
+    
+ }
+
+.Card .ImageHeader>div
+{
+    position:relative;
+    border-radius: 300px;
+    width: 500px;
+    height: 25px;
+    justify-content: center;
+    display:flex;
+    align-items: center;
+
+}
+  
+.Card .ImageHeader .header
+ {
+    
+    Top:15px;
+    background-color: green;
+
+
+ }
+
+
+ .Card .ImageHeader .footer
+ {
+    background-color:  rgb(78, 85, 133);
+    Top:280px;
+
+ }
+.Card .ImageHeader 
+{
+    
+ 
+    margin: 3px;
+    position:absolute;
+    /*border: 2px red solid;*/
+    width:300px;
+    padding-left: 0px;
+    left:auto;
+    top:0px;
+    text-align: center;
+}
+.mark
+{
+    display: flex;
+}
+.vote label,.vote select,.vote button
+{
+   margin-right: 10px;
+   margin-left: 10px;
+}
+.vote
+{
+    border:black solid 1px;
+    background-color: rgb(0, 255, 208);
+    border-radius: 300px;
+    width:90%;
+    height: 30px;
+    margin-bottom: 20px;
+    margin-left: 10%;
+   
+}
+

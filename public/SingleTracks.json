@@ -1,0 +1,37 @@
+
+    [
+        {
+            "name": "Alon HaGalil",
+            "picture":"https://i.ytimg.com/vi/ZWDdBooFSik/maxresdefault.jpg",
+            "level":"easy",
+            "grade":1,
+            "voters":2
+
+        },
+        {
+            "name": "Shimshit",
+            "picture":"https://www.kkl.org.il/bike/files/Trips/2009/2.jpg",
+            "level":"easy",
+            "grade":2,
+            "voters":2
+        },
+        {
+            "name": "Kiryat Ata Forest",
+            "picture":"https://www.kkl.org.il/bike/files/Trips/Banners/2812.jpg",
+            "level":"medium",
+            "grade":3,
+            "voters":2
+
+
+        },
+        {
+            "name": "R Shimon ben Lakish",
+            "picture":"https://www.kkl.org.il/bike/files/Trips/1992/10.jpg",
+            "level":"Hard",
+            "grade":5,
+            "voters":2
+
+
+        }
+        
+    ]

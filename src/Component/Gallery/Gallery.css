@@ -1,0 +1,11 @@
+
+.BikesGallery .Images
+{
+    flex-wrap:wrap;
+    justify-content: center;
+    display: flex;
+    margin: 5px;
+    padding: 5px;
+
+}
+
