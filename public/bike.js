@@ -20,7 +20,7 @@ const postData = (url,method='GET',body={}) => {
         })
 }
 //===============================================================================
-userId=1
+let userId=1
 postData(`http://localhost/users/GetAllVotesForTrail/${userId}`);
 userId=2
 postData(`http://localhost/users/GetAllVotesForTrail/${userId}`);
