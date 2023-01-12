@@ -1,7 +1,8 @@
 
-var express = require('express');
-var app = express();
-
+const express = require('express');
+const app = express();
+const cors =require ('cors');
+app.use(cors({origin: 'http://localhost:3000'}));
 app.use(express.urlencoded({ extended: true }));//built-in middleware function in Express.It parses incoming requests with urlencoded payloads and is based on body-parser.
 app.use(express.json());//It parses incoming JSON requests and puts the parsed data in req.body.
 
