@@ -1,35 +1,49 @@
 
 const postData = (url,dataToConsole,method='GET',body=null) => {
     console.log(dataToConsole);
-    console.log(url);
-    fetch(url, {
-        method: method,
-        if (body)
-         {
-             body: JSON.stringify(body)
-         }
-        
+    let reqJsonData;
+    if (body==null)
+    {
+         reqJsonData={ method: method};
+    }
+    else
+    {
+        reqJsonData ={
+            method: method,
+            body: JSON.stringify({
+                "userId": "1",
+                "macAddress": "70-FF-DD-6A-D1-19"
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        } 
+    }
+    fetch(url, reqJsonData )
+    .then((resultFromServer) => {
+        return resultFromServer.json();
     })
-    
-        .then((resultFromServer) => {
-            return resultFromServer.json();
-        })
-        .then((resultAsObj) => {
-            console.log(resultAsObj);
-            return (resultAsObj)
-        })
-        .catch((err) => {
-            console.log(err);
+    .then((resultAsObj) => {
+        console.log(resultAsObj);
+        return (resultAsObj)
+    })
+    .catch((err) => {
+        console.log(err);
         })
 }
 //===============================================================================
 
-const GetAllVotesForTrail = (userId)=>{postData(`http://localhost/users/GetAllVotesForTrail/${userId}`,"GetAllVotesForTrail");}
-const GetUserActivity = (userId) =>{postData(`http://localhost/users/activity/${userId}`,"GetUserActivity");}
-const addEntrance = (userId) =>{postData(`http://localhost/users/addEntrance/`,"addEntrance",);}
+const GetAllVotesForTrail = (trailId)=>{postData(`http://localhost/users/GetAllVotesForTrail/${trailId}`,`GetAllVotesForTrail id ${trailId}` );}
+const GetUserActivity = (userId) =>{postData(`http://localhost/users/activity/${userId}`,`GetUserActivity id ${userId}`);}
+const addEntrance = (userId,body) =>{postData(`http://localhost/users/addEntrance/`,`addEntrance id ${userId}`,'POST',body);}
 
 GetUserActivity(1);
 GetAllVotesForTrail(2);
+addEntrance(1,{
+    "userId": "1",
+     "macAddress": "70-FF-DD-6A-D1-19"
+  });
+
 //addEntrance(3);
 // post http://localhost/users/addEntrance/
 // {

@@ -19,243 +19,224 @@ const sqlConfig = {
     }
 }
 
-//const appPool = new mssql.ConnectionPool(sqlConfig);
 
-
-//const appPool = new mssql.ConnectionPool('Server=localhost,1433;Database=database;User Id=username;Password=password;Encrypt=true;max pool size=10;');
-
-const getUserActivity = async  (body,params)=> {
+const getUserActivity = async  (req,res)=> {
     try
      {
         console.log("at getUserActivity");
         let pool = await mssql.connect(sqlConfig);
-       
         let reqRes = await pool.request()
-        .input('UserId', mssql.Int, params.userId)
+        .input('UserId', mssql.Int, req.params.userId)
         .execute('GetAllActivityOfUser');
-        return (reqRes.recordset);
-        
+        res.send (reqRes.recordset); 
     } 
     catch (err) 
     {
         console.log("there was an error while sending Query to DB: ", err);
-        throw err
+        res.send(err)
     }
 }
-
-
 module.exports.getUserActivity = getUserActivity;
 
-
-
-const addEntrance = async (body,params) => {
+const addEntrance = async (req,res) => {
     try
      {
         console.log("at addEntrance");
         let pool = await mssql.connect(sqlConfig);
         let reqRes = await pool.request()
-        .input('macAddress', mssql.VarChar, body.macAddress)
-        .input('userId', mssql.Int, body.userId)
+        .input('macAddress', mssql.VarChar, req.body.macAddress)
+        .input('userId', mssql.Int, req.body.userId)
         .execute('AddEntrance');
-        return (reqRes.recordset);
+        res.send (reqRes.recordset);
         
     } 
     catch (err) 
     {
         console.log("there was an error while sending Query to DB: ", err);
-        throw err
+        res.send(err)
     }
 
 }
 module.exports.addEntrance = addEntrance;
 
 
-const UpdateEntranceLogOutTime = async (body,params) => {
+const UpdateEntranceLogOutTime = async (req,res) => {
     try
      {
         console.log("at UpdateEntranceLogOutTime");
         let pool = await mssql.connect(sqlConfig);
         let reqRes = await pool.request()
-        .input('entranceId', mssql.Int, params.EntranceId)
+        .input('entranceId', mssql.Int, req.params.EntranceId)
         .execute('UpdateEntranceLogOutTime');
-        return (reqRes.recordset);
+        res.send (reqRes.recordset);
         
     } 
     catch (err) 
     {
         console.log("there was an error while sending Query to DB: ", err);
-        throw err
+        res.send(err)
     }
+    
 
 }
 module.exports.UpdateEntranceLogOutTime = UpdateEntranceLogOutTime;
 
-const GetAverageGradingTrail = async (body,params) => {
+const GetAverageGradingTrail = async (req,res) => {
     try
      {
         console.log("at GetAverageGradingTrail");
         let pool = await mssql.connect(sqlConfig);
         let reqRes = await pool.request()
-        .input('reqTrailId', mssql.Int, params.trailId)
+        .input('reqTrailId', mssql.Int, req.params.trailId)
         .execute('GetAverageGradingTrail');
-        return (reqRes.recordset);
+        res.send (reqRes.recordset);
         
     } 
     catch (err) 
     {
         console.log("there was an error while sending Query to DB: ", err);
-        throw err
+        res.send(err)
     }
 
 }
 module.exports.GetAverageGradingTrail = GetAverageGradingTrail;
 
-const GetAverageGradingBike = async (body,params) => {
+const GetAverageGradingBike = async (req,res) => {
     try
      {
         console.log("at GetAverageGradingBike");
         let pool = await mssql.connect(sqlConfig);
         let reqRes = await pool.request()
-        .input('reqBikeId', mssql.Int, params.bikeId)
+        .input('reqBikeId', mssql.Int, req.params.bikeId)
         .execute('GetAverageGradingBike');
-        return (reqRes.recordset);
+        res.send (reqRes.recordset);
         
     } 
     catch (err) 
     {
         console.log("there was an error while sending Query to DB: ", err);
-        throw err
+        res.send(err)
     }
 
 }
 module.exports.GetAverageGradingBike = GetAverageGradingBike;
 
-
-
-
-const HasUserVoteToTRail = async (body,params) => {
+const HasUserVoteToTRail = async (req,res) => {
     try
      {
         console.log("at HasUserVoteToTRail");
         let pool = await mssql.connect(sqlConfig);
         let reqRes = await pool.request()
-        .input('userId', mssql.Int, params.userId)
-        .input('trailId', mssql.Int, params.trailId)
+        .input('userId', mssql.Int, req.params.userId)
+        .input('trailId', mssql.Int, req.params.trailId)
         .execute('HasUserVoteToTRail');
-        return (reqRes.recordset);
+        res.send(reqRes.recordset);
         
     } 
     catch (err) 
     {
         console.log("there was an error while sending Query to DB: ", err);
-        throw err
+        res.send(err)
     }
 
 }
 module.exports.HasUserVoteToTRail = HasUserVoteToTRail;
 
-
-const HasUserVoteToBIke = async (body,params) => {
+const HasUserVoteToBIke = async (req,res) => {
     try
      {
         console.log("at HasUserVoteToBIke");
         let pool = await mssql.connect(sqlConfig);
         let reqRes = await pool.request()
-        .input('userId', mssql.Int, params.userId)
-        .input('bikeId', mssql.Int, params.bikeId)
+        .input('userId', mssql.Int, req.params.userId)
+        .input('bikeId', mssql.Int, req.params.bikeId)
         .execute('HasUserVoteToBIke');
-        return (reqRes.recordset);
-        
+        res.send (reqRes.recordset); 
     } 
     catch (err) 
     {
         console.log("there was an error while sending Query to DB: ", err);
-        throw err
+        res.send(err)
     }
 
 }
 module.exports.HasUserVoteToBIke = HasUserVoteToBIke;
 
-const AddUser = async (body,params) => {
+const AddUser = async (req,res) => {
     try
      {
         console.log("at AddUser");
         let pool = await mssql.connect(sqlConfig);
         let reqRes = await pool.request()
-        .input('firstName', mssql.VarChar, body.firstName)
-        .input('lastName', mssql.VarChar, body.lastName)
-        .input('uAddress', mssql.VarChar, body.uAddress)
-        .input('userName', mssql.VarChar, body.userName)
-        .input('upassword', mssql.VarChar, body.upassword)
+        .input('firstName', mssql.VarChar, req.body.firstName)
+        .input('lastName', mssql.VarChar, req.body.lastName)
+        .input('uAddress', mssql.VarChar, req.body.uAddress)
+        .input('userName', mssql.VarChar, req.body.userName)
+        .input('upassword', mssql.VarChar, req.body.upassword)
         .execute('AddUser');
-        return (reqRes.recordset);
-        
+        res.send(reqRes.recordset);   
     } 
     catch (err) 
     {
         console.log("there was an error while sending Query to DB: ", err);
-        throw err
+        res.send(err)
     }
 
 }
 module.exports.AddUser = AddUser;
 
-
-const GetAllVotesForTrail = async (body,params) => {
+const GetAllVotesForTrail = async (req,res) => {
     try
      {
         console.log("at GetAllVotesForTrail");
         let pool = await mssql.connect(sqlConfig);
         let reqRes = await pool.request()
-        .input('reqTrailId', mssql.Int, params.trailId)
-       
+        .input('reqTrailId', mssql.Int, req.params.trailId)
         .execute('GetAllVotesForTrail');
-        return (reqRes.recordset);
+        res.send(reqRes.recordset)
         
     } 
     catch (err) 
     {
         console.log("there was an error while sending Query to DB: ", err);
-        throw err
+        res.send(err)
     }
 
 }
 module.exports.GetAllVotesForTrail = GetAllVotesForTrail;
 
-const GetAllVotesForBike = async (body,params) => {
+const GetAllVotesForBike = async (req,res) => {
     try
      {
         console.log("at GetAllVotesForBike");
         let pool = await mssql.connect(sqlConfig);
         let reqRes = await pool.request()
-        .input('reqBikeId', mssql.Int, params.bikeId)
+        .input('reqBikeId', mssql.Int, req.params.bikeId)
         .execute('GetAllVotesForBike');
-        return (reqRes.recordset);
-        
-    } 
+        res.send(reqRes.recordset);
+     }
     catch (err) 
     {
         console.log("there was an error while sending Query to DB: ", err);
-        throw err
+        res.send(err)
     }
 
 }
 module.exports.GetAllVotesForBike = GetAllVotesForBike;
 
-const GetNumberOfUsers = async (body,params) => {
+const GetNumberOfUsers = async (req, res) => {
     try
      {
         console.log("at GetNumberOfUsers");
         let pool = await mssql.connect(sqlConfig);
         let reqRes = await pool.request()
         .execute('GetNumberOfUsers');
-        return (reqRes.recordset);
-        
+        res.send(reqRes.recordset);
     } 
     catch (err) 
     {
         console.log("there was an error while sending Query to DB: ", err);
-        throw err
+        res.send(err)
     }
 
 }
