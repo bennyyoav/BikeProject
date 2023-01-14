@@ -10,9 +10,9 @@ router.post("/addEntrance/",bikesRepository.addEntrance);
 
 router.post("/UpdateEntranceLogOutTime/:EntranceId",bikesRepository.UpdateEntranceLogOutTime);
 
-router.get("/getGradeTrail/:trailId",bikesRepository.GetAverageGradingTrail );
+router.get("/GetAverageGradingTrail/:trailId",bikesRepository.GetAverageGradingTrail );
 
-router.get("/getGradeBike/:bikeId",bikesRepository.GetAverageGradingBike );
+router.get("/GetAverageGradingBike/:bikeId",bikesRepository.GetAverageGradingBike );
 
 router.get("/HasUserVoteToTRail/:userId/:trailId",bikesRepository.HasUserVoteToTRail);
 
