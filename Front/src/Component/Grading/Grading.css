@@ -5,8 +5,14 @@
     align-items: center;
    
 }
+.gradingAndVotes
+{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-.grading img
+.stars img
 {
     border-radius:30px;
     width:50px ;
@@ -14,4 +20,11 @@
     margin: 3px;
     
 
+} 
+
+.Votes {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+   
 }

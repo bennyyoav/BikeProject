@@ -2,6 +2,9 @@ import { Bike } from "../../Bike";
 import { SingleTrack } from "../../SingleTrack";
 import "./Card.css";
 import { Grading } from "../Grading/Grading";
+import { FaVoteYea } from "react-icons/fa";
+import { BikeGradingForm } from "./GradingForm.tsx/BikeGradingForm";
+
 export function BikeCard(props: {
   theBike: Bike;
   setCarrArr: React.Dispatch<React.SetStateAction<Bike[]>>;
@@ -17,47 +20,13 @@ export function BikeCard(props: {
           Manufacturer is {props.theBike.BikeManufacturer}{" "}
         </div>
       </div>
-      <Grading theNum={props.theBike.grade} />
-      <div className="vote">
-        <label>Score the bikes</label>
-
-        <select name="Bike Grade" className={`BikeGrade${props.indexAtArr}`}>
-          {[...Array(5)].map((curr, index) => (
-            <option value={index + 1} key={index}>
-              {index + 1}
-            </option>
-          ))}
-        </select>
-        <button
-          className="VoteButton"
-          onClick={() => {
-            //let tempArr=[...props.cardArray];
-            let tempArr = props.cardArray.slice();
-
-            let bikeWithNewGrade = props.theBike;
-
-            //calc aver grade
-            let votersNum = Number(bikeWithNewGrade.voters);
-            let oldVoteAverageNumber = bikeWithNewGrade.grade;
-            let newVote = Number(
-              (
-                document.querySelector(
-                  `.BikeGrade${props.indexAtArr}`
-                ) as HTMLInputElement
-              ).value
-            );
-            //Average CALC
-            bikeWithNewGrade.grade =
-              (oldVoteAverageNumber * votersNum + newVote) / (votersNum + 1);
-            bikeWithNewGrade.voters += 1;
-            tempArr.splice(props.indexAtArr, 1, bikeWithNewGrade);
-            props.setCarrArr([...tempArr]);
-          }}
-        >
-          vote
-        </button>
-        <label>Number of voters {props.theBike.voters}</label>
-      </div>
+      <Grading theNum={props.theBike.grade} voteNumber={props.theBike.voters} />
+      <BikeGradingForm
+        indexAtArr={props.indexAtArr}
+        theBike={props.theBike}
+        setCarrArr={props.setCarrArr}
+        cardArray={props.cardArray}
+      />
     </div>
   );
 }
@@ -72,12 +41,16 @@ export function SingleCard(props: {
 
   return (
     <div className="Card">
-      <img src={props.theSingel.picture} alt="" />
+      <img src={props.theSingel.PathToPicture} alt="" />
       <div className="ImageHeader">
-        <div className="header">{props.theSingel.name} </div>
-        <div className="footer">Level is {props.theSingel.level} </div>
+        <div className="header">{props.theSingel.TrailName} </div>
+        <div className="footer">Level is {props.theSingel.TrailLevel} </div>
       </div>
-      <Grading theNum={props.theSingel.grade} />
+      <Grading
+        theNum={props.theSingel.grade}
+        voteNumber={props.theSingel.voters}
+      />
+
       <div className="vote">
         <label>Score the Trail</label>
 
@@ -116,7 +89,6 @@ export function SingleCard(props: {
         >
           vote
         </button>
-        <label>Number of voters {props.theSingel.voters}</label>
       </div>
     </div>
   );

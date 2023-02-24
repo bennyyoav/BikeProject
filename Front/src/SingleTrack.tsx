@@ -1,8 +1,8 @@
 export interface SingleTrack {
   id?: number;
-  name: string;
-  picture: string;
-  level: string;
+  TrailName: string;
+  PathToPicture: string;
+  TrailLevel: string;
   grade: number;
   voters: number;
 }

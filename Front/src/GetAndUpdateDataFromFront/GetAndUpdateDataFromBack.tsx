@@ -200,8 +200,10 @@ function ResponseToGetAverageGradingTrail(
 ) {
   if (ans[0].TrailAverageGrade) {
     console.log(`Average Grading Trail is ${ans[0].TrailAverageGrade}`);
+    return ans[0].TrailAverageGrade;
   } else {
     console.log(`0 voutes `);
+    return 0;
   }
 }
 function ResponseToGetAverageGradingBike(ans: { bikeAverageGrade: string }[]) {
@@ -261,6 +263,7 @@ function ResponseToGetTrails(singleTrekArr: SingleTrack[]) {
     promises.push(
       GetAverageGradingTrail(elem.id!).then((singleTrekGrade) => {
         elem.grade = singleTrekGrade;
+        console.log("elem.grade" + elem.grade);
         GetNumberOfVoteTrail(elem.id!).then((voters) => {
           elem.voters = voters;
         });

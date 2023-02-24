@@ -185,15 +185,15 @@ export function AddPictureFormSingleTrack(props: {
           let newSingleTrack = [
             ...props.galleryCards,
             {
-              name: `${
+              TrailName: `${
                 (document.querySelector(".SingleTrackName") as HTMLInputElement)
                   .value
               }`,
-              picture: `${
+              PathToPicture: `${
                 (document.querySelector(".SingelTrackUrl") as HTMLInputElement)
                   .value
               }`,
-              level: `${
+              TrailLevel: `${
                 (
                   document.querySelector(
                     ".SingleTrackLevel"
