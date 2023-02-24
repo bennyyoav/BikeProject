@@ -6,15 +6,9 @@ import { Route, Routes } from "react-router-dom";
 import { AboutAs } from "./Component/AboutAs/AboutAs";
 import { BikeCompetitions } from "./Component/BikeCompetitions/BikeCompetitions";
 import { SiteRegistration } from "./Component/SiteRegistration/SiteRegistration";
-import {
-  addEntrance,
-  ResponseToAddEntrance,
-  GetAllVotesForTrail,
-  UpdateEntranceLogOutTime,
-} from "./GetAndUpdateDataFromBack/GetAndUpdateDataFromBack";
+import {} from "./GetAndUpdateDataFromFront/GetAndUpdateDataFromBack";
+
 function App() {
-  addEntrance(1, "70-DD-DD-6A-D1-19");
-  UpdateEntranceLogOutTime(46);
   return (
     <div className="App">
       <NavBar />

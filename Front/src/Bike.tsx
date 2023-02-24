@@ -1,10 +1,8 @@
-export interface Bike
-{
-    "name":string,
-    "picture":string,
-    "manufacturer":string,
-    "grade":number,
-    "voters":number
-
-
+export interface Bike {
+  id?: number;
+  BikeName: string;
+  PathToPicture: string;
+  BikeManufacturer: string;
+  grade: number;
+  voters: number;
 }
