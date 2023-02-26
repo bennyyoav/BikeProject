@@ -1,6 +1,8 @@
 import { FaVoteYea } from "react-icons/fa";
+import { MdOutlinePedalBike } from "react-icons/md";
 import { Bike } from "../../../Bike";
-
+import "./BikeGradingForm.css";
+import Collapsible from "react-collapsible";
 export function BikeGradingForm(props: {
   indexAtArr: number;
   theBike: Bike;
@@ -9,21 +11,33 @@ export function BikeGradingForm(props: {
 }) {
   return (
     <div className="vote">
-      <div className="gradingLabelDiv">
-        <label>
-          <u>Score and Comment the bikes</u>
-        </label>
-      </div>
+      <Collapsible
+        trigger={
+          <div className="gradingLabelDiv">
+            <h3>
+              {" "}
+              Want to Grade and vote the bikes ? &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <MdOutlinePedalBike />
+            </h3>
+          </div>
+        }
+        open={false}
+      >
+        <div className="gradeButton">
+          <label>grade</label>
+          <select name="Bike Grade" className={`BikeGrade${props.indexAtArr}`}>
+            {[...Array(5)].map((curr, index) => (
+              <option value={index + 1} key={index}>
+                {index + 1}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <select name="Bike Grade" className={`BikeGrade${props.indexAtArr}`}>
-        {[...Array(5)].map((curr, index) => (
-          <option value={index + 1} key={index}>
-            {index + 1}
-          </option>
-        ))}
-      </select>
-      <div className="gradeButton">
-        <label>grade and comment</label>
+        <div className="commentInput">
+          <label>comment :</label>
+          <input placeholder="Insert your comment"></input>
+        </div>
         <button
           className="VoteButton"
           onClick={() => {
@@ -50,14 +64,10 @@ export function BikeGradingForm(props: {
             props.setCarrArr([...tempArr]);
           }}
         >
-          <FaVoteYea />{" "}
+          {/* icon of vote */}
+          <FaVoteYea />
         </button>
-      </div>
-
-      <div className="commentInput">
-        <label>comment :</label>
-        <input placeholder="Insert your comment"></input>
-      </div>
+      </Collapsible>
     </div>
   );
 }

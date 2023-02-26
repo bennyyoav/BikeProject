@@ -2,7 +2,6 @@ import { Bike } from "../../Bike";
 import { SingleTrack } from "../../SingleTrack";
 import "./Card.css";
 import { Grading } from "../Grading/Grading";
-import { FaVoteYea } from "react-icons/fa";
 import { BikeGradingForm } from "./GradingForm.tsx/BikeGradingForm";
 
 export function BikeCard(props: {
