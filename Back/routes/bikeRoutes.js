@@ -26,4 +26,16 @@ router.get("/GetAllVotesForBike/:bikeId",bikesRepository.GetAllVotesForBike);
 
 router.get("/GetNumberOfUsers/",bikesRepository.GetNumberOfUsers);
 
+router.get("/GetNumberOfVoteBike/",bikesRepository.GetNumberOfVoteBike);
+
+router.get("/Bikes/",bikesRepository.getBikes);
+
+router.get("/Trails/",bikesRepository.getTrails);
+
+router.get("/GetNumberOfVoteBike/:bikeId",bikesRepository.GetNumberOfVoteBike);
+
+router.get("/GetNumberOfVoteTrail/:trailId",bikesRepository.GetNumberOfVoteTrail);
+
+router.post("/AddVoteAndResponseBike/",bikesRepository.AddVoteAndResponseBike);
+
 module.exports = router;

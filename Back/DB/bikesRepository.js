@@ -4,10 +4,10 @@ dotenv.config();
 
 
 const sqlConfig = {
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE,
-    server: process.env.SERVER,
+    user: process.env.SQL_USER,
+    password: process.env.SQL_PASSWORD,
+    database: process.env.SQL_DATABASE,
+    server: process.env.SQL_SERVER,
     pool: {
         max: 10,
         min: 0,
@@ -42,6 +42,7 @@ const addEntrance = async (req,res) => {
     try
      {
         console.log("at addEntrance");
+        console.log(req.body)
         let pool = await mssql.connect(sqlConfig);
         let reqRes = await pool.request()
         .input('macAddress', mssql.VarChar, req.body.macAddress)
@@ -166,13 +167,14 @@ const AddUser = async (req,res) => {
     try
      {
         console.log("at AddUser");
+        console.log(req.body);
         let pool = await mssql.connect(sqlConfig);
         let reqRes = await pool.request()
         .input('firstName', mssql.VarChar, req.body.firstName)
         .input('lastName', mssql.VarChar, req.body.lastName)
         .input('uAddress', mssql.VarChar, req.body.uAddress)
         .input('userName', mssql.VarChar, req.body.userName)
-        .input('upassword', mssql.VarChar, req.body.upassword)
+        .input('uPassword', mssql.VarChar, req.body.uPassword)
         .execute('AddUser');
         res.send(reqRes.recordset);   
     } 
@@ -241,3 +243,99 @@ const GetNumberOfUsers = async (req, res) => {
 
 }
 module.exports.GetNumberOfUsers = GetNumberOfUsers;
+const getBikes= async (req, res) => {
+    try
+     {
+        console.log("at get Bikes");
+        let pool = await mssql.connect(sqlConfig);
+        let reqRes = await pool.request()
+        .execute('GetAllBikes');
+        res.send(reqRes.recordset);
+    } 
+    catch (err) 
+    {
+        console.log("there was an error while sending Query to DB: ", err);
+        res.send(err)
+    }
+}
+module.exports.getBikes = getBikes;
+
+
+const getTrails = async (req, res) => {
+    try
+     {
+        console.log("at get Trail");
+        let pool = await mssql.connect(sqlConfig);
+        let reqRes = await pool.request()
+        .execute('GetAllTrials');
+        res.send(reqRes.recordset);
+    } 
+    catch (err) 
+    {
+        console.log("there was an error while sending Query to DB: ", err);
+        res.send(err)
+    }
+}
+module.exports.getTrails = getTrails;
+
+const GetNumberOfVoteBike = async (req, res) => {
+    try
+     {
+        console.log("get Number Of Vote Bike");
+        let pool = await mssql.connect(sqlConfig);
+        let reqRes = await pool.request()
+        .input('reqBikeId', mssql.Int, req.params.bikeId)
+        .execute('GetNumberOfVotesForBike');
+        res.send(reqRes.recordset);
+    } 
+    catch (err) 
+    {
+        console.log("there was an error while sending Query to DB: ", err);
+        res.send(err)
+    }
+
+}
+module.exports.GetNumberOfVoteBike = GetNumberOfVoteBike;
+
+const GetNumberOfVoteTrail = async (req, res) => {
+    try
+     {
+        console.log("get Number Of Vote Trail");
+        let pool = await mssql.connect(sqlConfig);
+        let reqRes = await pool.request()
+        .input('reqTrailID', mssql.Int, req.params.trailId)
+        .execute('GetNumberOfVotesForTrail');
+        res.send(reqRes.recordset);
+        
+     }
+     catch (err) 
+     {
+         console.log("there was an error while sending Query to DB: ", err);
+         res.send(err)
+     }
+}
+module.exports.GetNumberOfVoteTrail = GetNumberOfVoteTrail;
+
+
+const AddVoteAndResponseBike = async (req,res) => {
+    try
+     {
+        console.log("at AddVoteAndResponseBike");
+        console.log(req.body);
+        let pool = await mssql.connect(sqlConfig);
+        let reqRes = await pool.request()
+        .input('entranceId', mssql.Int, req.body.entranceId )
+        .input('BikeId', mssql.Int, req.body.BikeId)
+        .input('Vote', mssql.Int, req.body.Vote)
+        .input('Comment', mssql.VarChar, req.body.Comment)
+        .execute('AddVoteAndResponseBike');
+        res.send(reqRes.recordset);   
+    } 
+    catch (err) 
+    {
+        console.log("there was an error while sending Query to DB: ", err);
+        res.send(err)
+    }
+
+}
+module.exports.AddVoteAndResponseBike = AddVoteAndResponseBike;
