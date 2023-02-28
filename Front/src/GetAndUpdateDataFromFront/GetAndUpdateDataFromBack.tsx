@@ -1,6 +1,12 @@
 import { Bike } from "../Bike";
 import { SingleTrack } from "../SingleTrack";
-import { Entrance, sqlToJsDate, User, Vote } from "./dbClasses";
+import {
+  Entrance,
+  sqlToJsDate,
+  User,
+  ReceivedVoteBike,
+  AddVoteBike,
+} from "./dbClasses";
 
 const BACK_SERVER = "localhost";
 
@@ -165,13 +171,24 @@ export const GetNumberOfVoteTrail = (trailId: number) => {
 };
 //=========================================================
 
+export const AddVoteAndResponseBike = (Vote: AddVoteBike) => {
+  return postData(
+    `http://${BACK_SERVER}/users/AddVoteAndResponseBike/`,
+    `Add vote and response bike ${Vote.BikeId}`,
+    ResponseToAddVoteAndResponseBike,
+    "POST",
+    Vote
+  );
+};
+//=========================================================
+
 function ResponseToAddEntrance(ans: { EntranceID: string }[]) {
   //ans has field  of  EntranceID
   console.log(`new Entrance ID =  ${ans[0].EntranceID}`);
   return ans[0].EntranceID;
 }
 
-function ResponseToGetAllVotesForTrail(votes: Vote[]) {
+function ResponseToGetAllVotesForTrail(votes: ReceivedVoteBike[]) {
   console.log(`All Votes For Trail`);
   votes.forEach((vote) => {
     console.log(`${JSON.stringify(vote)}`);
@@ -181,7 +198,7 @@ function ResponseToGetAllVotesForTrail(votes: Vote[]) {
   });
 }
 
-function ResponseToGetUserActivity(ans: Vote[]) {
+function ResponseToGetUserActivity(ans: ReceivedVoteBike[]) {
   console.log(`Get User Activity`);
   ans.forEach((vote) => {
     console.log(`${JSON.stringify(vote)}`);
@@ -244,10 +261,10 @@ function ResponseToGetBikes(bikeArry: Bike[]) {
     promises.push(
       GetAverageGradingBike(elem.id!).then((bikeGrade) => {
         elem.grade = bikeGrade;
-        GetNumberOfVoteBike(elem.id!).then((voters) => {
+        return GetNumberOfVoteBike(elem.id!).then((voters) => {
           elem.voters = voters;
+          return elem;
         });
-        return elem;
       })
     );
   });
@@ -255,19 +272,23 @@ function ResponseToGetBikes(bikeArry: Bike[]) {
   return Promise.all(promises);
 }
 
+function ResponseToAddVoteAndResponseBike(ans: { ans: boolean }[]) {
+  console.log(`add vote to bike  = ${ans[0].ans}`);
+}
+
 function ResponseToGetTrails(singleTrekArr: SingleTrack[]) {
   var promises: Promise<SingleTrack>[] = [];
+
   console.log("at ResponseToGet Trail");
 
   singleTrekArr.forEach((elem) => {
     promises.push(
       GetAverageGradingTrail(elem.id!).then((singleTrekGrade) => {
         elem.grade = singleTrekGrade;
-        console.log("elem.grade" + elem.grade);
-        GetNumberOfVoteTrail(elem.id!).then((voters) => {
+        return GetNumberOfVoteTrail(elem.id!).then((voters) => {
           elem.voters = voters;
+          return elem;
         });
-        return elem;
       })
     );
   });

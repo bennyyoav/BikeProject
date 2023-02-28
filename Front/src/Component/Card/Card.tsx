@@ -3,6 +3,7 @@ import { SingleTrack } from "../../SingleTrack";
 import "./Card.css";
 import { Grading } from "../Grading/Grading";
 import { BikeGradingForm } from "./GradingForm.tsx/BikeGradingForm";
+import { SingleGradingForm } from "./GradingForm.tsx/SingleGradingForm";
 
 export function BikeCard(props: {
   theBike: Bike;
@@ -49,46 +50,12 @@ export function SingleCard(props: {
         theNum={props.theSingel.grade}
         voteNumber={props.theSingel.voters}
       />
-
-      <div className="vote">
-        <label>Score the Trail</label>
-
-        <select name="Bike Grade" className={`BikeGrade${props.indexAtArr}`}>
-          {[...Array(5)].map((curr, index) => (
-            <option value={index + 1} key={index}>
-              {index + 1}
-            </option>
-          ))}
-        </select>
-        <button
-          className="VoteButton"
-          onClick={() => {
-            let tempArr = [...props.cardArray];
-
-            let singleWithNewGrade = props.theSingel;
-
-            //calc aver grade
-            let votersNum = Number(singleWithNewGrade.voters);
-            let oldVoteAverageNumber = singleWithNewGrade.grade;
-            let newVote = Number(
-              (
-                document.querySelector(
-                  `.BikeGrade${props.indexAtArr}`
-                ) as HTMLInputElement
-              ).value
-            );
-            //Average CALC
-            singleWithNewGrade.grade =
-              (oldVoteAverageNumber * votersNum + newVote) / (votersNum + 1);
-            singleWithNewGrade.voters += 1;
-            tempArr.splice(props.indexAtArr, 1, singleWithNewGrade);
-
-            props.setCarrArr([...tempArr]);
-          }}
-        >
-          vote
-        </button>
-      </div>
+      <SingleGradingForm
+        indexAtArr={props.indexAtArr}
+        theSingel={props.theSingel}
+        setCarrArr={props.setCarrArr}
+        cardArray={props.cardArray}
+      />
     </div>
   );
 }

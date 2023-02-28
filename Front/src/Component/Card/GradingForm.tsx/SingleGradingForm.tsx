@@ -1,15 +1,13 @@
 import { FaVoteYea } from "react-icons/fa";
-import { MdOutlinePedalBike } from "react-icons/md";
-import { Bike } from "../../../Bike";
+import { GiMountainCave } from "react-icons/gi";
 import "./GradingForm.css";
 import Collapsible from "react-collapsible";
-import { AddVoteAndResponseBike } from "../../../GetAndUpdateDataFromFront/GetAndUpdateDataFromBack";
-import { AddVoteBike } from "../../../GetAndUpdateDataFromFront/dbClasses";
-export function BikeGradingForm(props: {
+import { SingleTrack } from "../../../SingleTrack";
+export function SingleGradingForm(props: {
   indexAtArr: number;
-  theBike: Bike;
-  setCarrArr: React.Dispatch<React.SetStateAction<Bike[]>>;
-  cardArray: Bike[];
+  theSingel: SingleTrack;
+  setCarrArr: React.Dispatch<React.SetStateAction<SingleTrack[]>>;
+  cardArray: SingleTrack[];
 }) {
   return (
     <div className="vote">
@@ -18,11 +16,9 @@ export function BikeGradingForm(props: {
           <div className="gradingLabelDiv">
             <h3>
               {" "}
-              <span className="gradingText">
-                Want to rate and review the bikes ?
-              </span>{" "}
+              Want to rate and review the Single ?
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <MdOutlinePedalBike />
+              <GiMountainCave />
             </h3>
           </div>
         }
@@ -30,11 +26,7 @@ export function BikeGradingForm(props: {
       >
         <div className="gradeButton">
           <label>grade</label>
-          <select
-            name="Bike Grade"
-            className={`BikeGrade${props.indexAtArr}`}
-            id={`${props.theBike.id}`}
-          >
+          <select name="Bike Grade" className={`BikeGrade${props.indexAtArr}`}>
             {[...Array(5)].map((curr, index) => (
               <option value={index + 1} key={index}>
                 {index + 1}
@@ -43,7 +35,7 @@ export function BikeGradingForm(props: {
           </select>
         </div>
 
-        <div className="commentInput" id={`commentInput${props.theBike.id}`}>
+        <div className="commentInput">
           <label>comment :</label>
           <input placeholder="Insert your comment"></input>
         </div>
@@ -53,7 +45,7 @@ export function BikeGradingForm(props: {
             //let tempArr=[...props.cardArray];
             let tempArr = props.cardArray.slice();
 
-            let bikeWithNewGrade = props.theBike;
+            let bikeWithNewGrade = props.theSingel;
 
             //calc aver grade
             let votersNum = Number(bikeWithNewGrade.voters);
@@ -65,21 +57,7 @@ export function BikeGradingForm(props: {
                 ) as HTMLInputElement
               ).value
             );
-            let vote = new AddVoteBike();
-
-            vote.BikeId = Number(props.theBike.id); //convert to number ! means that i know that its not null
-            vote.Vote = newVote;
-            vote.entranceId = 2;
-            vote.Comment = (
-              document.querySelector(
-                `#commentInput${vote.BikeId} input `
-              ) as HTMLInputElement
-            ).value;
-
-            AddVoteAndResponseBike(vote);
-
             //Average CALC
-
             bikeWithNewGrade.grade =
               (oldVoteAverageNumber * votersNum + newVote) / (votersNum + 1);
             bikeWithNewGrade.voters += 1;

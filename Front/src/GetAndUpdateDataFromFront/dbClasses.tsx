@@ -33,12 +33,19 @@ export class User {
     }
   }
 }
-export interface Vote {
+export interface ReceivedVoteBike {
   id: number | null;
   FullName: String;
   Vote: number;
   Comment: String;
   LogInTime: Date;
+}
+
+export class AddVoteBike {
+  entranceId: Number = 0;
+  BikeId: Number = 0;
+  Vote: Number = 0;
+  Comment: string = "";
 }
 export interface Activity {
   fullName: String;

@@ -8,10 +8,15 @@ function EnableDisableSubmit(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>
 ) {
   let validityCheck: boolean = true;
-  let inputs = document.querySelectorAll("input"); //return node list
+  //let inputs = document.querySelectorAll(`input`); //return node list
+  let inputs = document.querySelectorAll(
+    `.addPicture input `
+  ) as unknown as NodeListOf<HTMLInputElement>; //return node list
   let inputsArr = Array.from(inputs);
+
   inputsArr.map((input) => {
     if (input.value.length === 0) {
+      console.log(input.name);
       validityCheck = false;
     }
   });
