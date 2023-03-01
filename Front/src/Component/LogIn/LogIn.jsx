@@ -5,10 +5,14 @@ import { MdDirectionsBike } from "react-icons/md";
 
 export class LogIN extends React.Component{
 render(){
+
   return(
-    <div id="loginform">
+    <div className='loginFormBody'>
+    <div id="loginForm"  >
       <FormHeader title="Login" upTitle="Welcome Rider" />
       <Form />
+      <RegisterHyperLink/>
+    </div>
     </div>
   )
 }
@@ -36,6 +40,13 @@ const FormButton = props => (
   <button>{props.title}</button>
 </div>
 );
+
+const RegisterHyperLink = props => (
+  <div id ="Register" >
+    <a href="SiteRegistration">Registration to the site</a>
+    <link rel="stylesheet" Registration to the site href="" />
+  </div>
+  );
 
 const FormInput = props => (
 <div class="row">

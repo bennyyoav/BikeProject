@@ -67,8 +67,7 @@ export function BikeGradingForm(props: {
             );
             let vote = new AddVoteBike();
 
-            vote.BikeId = Number(props.theBike.id); //convert to number ! means that i know that its not null
-            vote.Vote = newVote;
+            vote.BikeId = Number(props.theBike.id); 
             vote.entranceId = 2;
             vote.Comment = (
               document.querySelector(

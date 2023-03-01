@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavBar } from "./Component/NavBar/NavBar";
 import "./App.css";
 import { GallerySelector } from "./Component/GallerySelector/GallerySelector";
@@ -7,8 +7,21 @@ import { AboutAs } from "./Component/AboutAs/AboutAs";
 import { BikeCompetitions } from "./Component/BikeCompetitions/BikeCompetitions";
 import { SiteRegistration } from "./Component/SiteRegistration/SiteRegistration";
 import {} from "./GetAndUpdateDataFromFront/GetAndUpdateDataFromBack";
+import { LogIN } from "./Component/LogIn/LogIn";
 
 function App() {
+  let [userPerformLogIn, setuserPerformLogIn] = useState<boolean>(false);
+  if (!userPerformLogIn) {
+    return (
+      <div>
+        <Routes>
+          <Route path="/" element={<LogIN />} />
+          <Route path="/siteRegistration" element={<SiteRegistration />} />
+        </Routes>
+      </div>
+    );
+  }
+
   return (
     <div className="App">
       <NavBar />
