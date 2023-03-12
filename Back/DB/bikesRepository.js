@@ -2,6 +2,9 @@ const mssql = require('mssql');
 const dotenv = require('dotenv');
 dotenv.config();
 
+const express = require('express')
+const app = express()
+
 
 const sqlConfig = {
     user: process.env.SQL_USER,
@@ -339,3 +342,4 @@ const AddVoteAndResponseBike = async (req,res) => {
 
 }
 module.exports.AddVoteAndResponseBike = AddVoteAndResponseBike;
+
