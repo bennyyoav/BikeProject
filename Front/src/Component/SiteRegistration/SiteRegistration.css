@@ -18,7 +18,7 @@
     
     position: absolute;
     left: 0px;
-    height: 100%;
+    height: 110%;
   } 
 
   #RegisterForm #Registration #RegistererHeaderTitle 
@@ -29,6 +29,8 @@
     align-items: center;
     min-width: 300px;
   }
+ 
+
   #RegisterForm #Registration
   {
    
@@ -37,10 +39,14 @@
     min-width: 200px;
     position: absolute;
     right: 0px;
-    height: 100%;
+    
   }
+
   
 
+  
+  
+ 
 
   
    .RegistererRow{
@@ -85,20 +91,28 @@
     color: rgba(187,187,187,0.9);
   }
   
-  .RegistererRow button{
+  .row button{
     border-radius: 25px;
     width: 80%;
     height: 40px;
     font-size: 1.3rem;
     color: white;
     font-weight: 700;
-    background: rgb(34,193,195);
-    background: linear-gradient(90deg, rgba(34,193,195,1) 0%,     rgba(253,187,45,1) 100%);
+    background: rgb(185, 189, 189);
     border: 0px;
     cursor: pointer;
     transition: opacity 0.25s ease-out;
-    padding-bottom: 1.5rem;
   }
+  #RegistererButtonEnable
+  {
+    background: linear-gradient(90deg, rgba(34,193,195,1) 0%,     rgba(253,187,45,1) 100%);
+
+  }
+  #RegistererButtonDisable
+  {
+    background: rgb(185, 189, 189);
+  }
+
   
   .RegistererRow button:hover{
     opacity: 0.8;

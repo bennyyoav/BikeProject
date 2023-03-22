@@ -30,17 +30,4 @@ function App() {
   );
 }
 
-// return (
-//   <div className="App">
-//     <NavBar />
-//     <Routes>
-//       <Route path="/" element={<GallerySelector />} />
-//       <Route path="/AboutAs" element={<AboutAs />} />
-//       <Route path="/BikeCompetitions" element={<BikeCompetitions />} />
-//       <Route path="/siteRegistration" element={<SiteRegistration />} />
-//     </Routes>
-//   </div>
-// );
-//}
-
 export default App;

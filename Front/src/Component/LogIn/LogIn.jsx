@@ -36,8 +36,8 @@ const Form = props => (
 );
 
 const FormButton = props => (
-<div id="button" class="row">
-  <button>{props.title}</button>
+<div  className="row">
+  <button id="logInButton">{props.title}</button>
 </div>
 );
 
@@ -49,7 +49,7 @@ const RegisterHyperLink = props => (
   );
 
 const FormInput = props => (
-<div class="row">
+<div className="row">
   <label>{props.description}</label>
   <input type={props.type} placeholder={props.placeholder}/>
 </div>  

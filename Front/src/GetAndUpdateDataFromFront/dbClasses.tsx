@@ -11,23 +11,26 @@ export class Entrance {
 }
 
 export class User {
-  id?: number;
+  id?: number = -1;
   firstName: String;
   lastName: String;
-  uAddress?: String;
   userName: String;
   uPassword: String;
+  uAddress?: String = "";
+  imageUrl: String;
   constructor(
     FirstName: String,
     lastName: String,
     userName: String,
     uPassword: String,
+    imageUrl: String,
     uAddress: String | null = null
   ) {
     this.firstName = FirstName;
     this.lastName = lastName;
     this.userName = userName;
     this.uPassword = uPassword;
+    this.imageUrl = imageUrl;
     if (uAddress) {
       this.uAddress = uAddress;
     }

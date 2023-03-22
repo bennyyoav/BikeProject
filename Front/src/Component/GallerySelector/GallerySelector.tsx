@@ -11,8 +11,6 @@ import {
   GetBikes,
   GetTrails,
 } from "../../GetAndUpdateDataFromFront/GetAndUpdateDataFromBack";
-import { json } from "stream/consumers";
-import { NavBar } from "../NavBar/NavBar";
 
 export function GallerySelector() {
   let [bikeArry, setBikeArray] = useState<Bike[]>([]);
