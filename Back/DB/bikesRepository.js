@@ -178,6 +178,7 @@ const AddUser = async (req,res) => {
         .input('uAddress', mssql.VarChar, req.body.uAddress)
         .input('userName', mssql.VarChar, req.body.userName)
         .input('uPassword', mssql.VarChar, req.body.uPassword)
+        .input('imageUrl', mssql.VarChar, req.body.imageUrl)
         .execute('AddUser');
         res.send(reqRes.recordset);   
     } 

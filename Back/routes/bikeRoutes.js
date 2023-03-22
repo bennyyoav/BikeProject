@@ -60,9 +60,10 @@ router.post("/AddVoteAndResponseBike/",bikesRepository.AddVoteAndResponseBike);
 
 router.post("/getUserImage/", uploadUserImages.single('file'), function (req, res) {
 
-        res.send(JSON.stringify({file:path.join('file:',os.hostname(),
+  console.log("at getUserImage")      
+  res.send(JSON.stringify({file:path.join('file:',os.hostname(),
         req.file.destination.split(':')[1],
-        req.file.filename)}))
+        req.file.filename),statusText:"benny"}))
 
 });     
  
