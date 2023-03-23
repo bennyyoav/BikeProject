@@ -257,7 +257,7 @@ AS
 
 	SELECT 'ans' = @ans;
 Go
-/*EXEC CheckPassword "Jhone", 12345
+/*EXEC CheckPassword "Jhone", 12345*/
 /*----------------------CREATE PROCEDUREs---------------------------------------*/
 
 DROP PROCEDURE IF EXISTS dbo.GetAllUserNames;  
