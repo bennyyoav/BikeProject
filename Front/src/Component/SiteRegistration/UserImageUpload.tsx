@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./UserImageUpload.css";
-const images = require.context("C:/Users/benny/Desktop/bike_prog/images");
+//const images = require.context("C:/Users/benny/Desktop/bike_prog/images");
 
 const BACK_SERVER = "localhost";
 export const manAvatarURL =
@@ -30,13 +30,12 @@ export function UserImageUpload() {
       .then((response) => {
         response.json().then((response) => {
           console.log("response=", response);
-          let loadedImageRelativePath = `./userImages/${
-            response.file.split("userImages\\")[1]
-          }`;
+          let loadedImageRelativePath = `/../../${response.file
+            .split("bike_prog\\")[1]
+            .replaceAll("\\", "/")}`;
+
           console.log(loadedImageRelativePath);
-          const userImagePath = images(loadedImageRelativePath);
-          console.log(userImagePath);
-          setImageUrl(userImagePath);
+          setImageUrl(loadedImageRelativePath);
 
           setUploadImageStatus("Image loaded successfully");
           setEnableUploadPictureButton(false);
@@ -134,7 +133,12 @@ export function UserImageUpload() {
       }
 
       <form onSubmit={handleSubmit} name="foo">
-        <input type="file" name="file" onChange={handleFileChange}></input>
+        <input
+          type="file"
+          id="userNameFile"
+          name="file"
+          onChange={handleFileChange}
+        ></input>
         {enableUploadPictureButton && <button type="submit">Submit</button>}
         {!enableUploadPictureButton && (
           <button type="submit" disabled>
@@ -143,16 +147,22 @@ export function UserImageUpload() {
         )}
       </form>
       {uploadImageStatus === "Image loaded successfully" && (
-        <h4 style={{ color: "green" }}>{uploadImageStatus}</h4>
+        <h4 id="uploadImageStatus" style={{ color: "green" }}>
+          {uploadImageStatus}
+        </h4>
       )}
       {(uploadImageStatus ===
         "A photo has been added, but has not yet been uploaded" ||
         uploadImageStatus === "Image not Loaded") && (
-        <h4 style={{ color: "orange" }}>{uploadImageStatus}</h4>
+        <h4 id="uploadImageStatus" style={{ color: "orange" }}>
+          {uploadImageStatus}
+        </h4>
       )}
       {(uploadImageStatus === "uploaded image error" ||
         uploadImageStatus === "Malfunction in loading the image") && (
-        <h4 style={{ color: "red" }}>{uploadImageStatus}</h4>
+        <h4 id="uploadImageStatus" style={{ color: "red" }}>
+          {uploadImageStatus}
+        </h4>
       )}
     </div>
   );

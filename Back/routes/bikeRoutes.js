@@ -56,7 +56,7 @@ router.get("/GetNumberOfVoteTrail/:trailId",bikesRepository.GetNumberOfVoteTrail
 
 router.post("/AddVoteAndResponseBike/",bikesRepository.AddVoteAndResponseBike);
 
-router.post("/AddVoteAndResponseBike/",bikesRepository.AddVoteAndResponseBike);
+router.get("/IsUserExist/:userName",bikesRepository.IsUserExist);
 
 router.post("/getUserImage/", uploadUserImages.single('file'), function (req, res) {
 

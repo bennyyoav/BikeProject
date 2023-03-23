@@ -116,6 +116,15 @@ export const HasUserVoteToTRail = (userId: Number, trailId: Number) => {
   );
 };
 //======================================================
+export const IsUserExist = (userName: String) => {
+  return postData(
+    `http://${BACK_SERVER}/users/IsUserExist/${userName}`,
+    `Is User exist`,
+    ResponseToIsUserExist
+  );
+};
+
+//=======================================================
 export const GetBikes = () => {
   return postData(
     `http://${BACK_SERVER}/users/Bikes/`,
@@ -151,6 +160,7 @@ export const AddUser = (body: User) => {
     body
   );
 };
+
 //=========================================================
 
 export const GetNumberOfVoteBike = (bikeId: number) => {
@@ -242,6 +252,7 @@ function ResponseToHasUserVoteToBIke(ans: { ans: boolean }[]) {
 
 function ResponseToAddUser(ans: { userID: Number }[]) {
   console.log(`new user =${JSON.stringify(ans)}`);
+  return ans[0].userID;
 }
 function ResponseToGetNumberOfVoteBike(ans: { NumberOfVote: number }[]) {
   console.log(`Number Of Vote Bike is =${ans[0].NumberOfVote}`);
@@ -318,6 +329,10 @@ function padTo2Digits(num: number) {
   return num.toString().padStart(2, "0");
 }
 
+function ResponseToIsUserExist(ans: { ans: boolean }[]) {
+  console.log(`IsUserExist ans  =${ans[0].ans}`);
+  return ans[0].ans;
+}
 //==========utility functions end===================//
 
 //how to call functions

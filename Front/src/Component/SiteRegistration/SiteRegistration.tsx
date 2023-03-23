@@ -2,7 +2,10 @@ import React from "react";
 import "./SiteRegistration.css";
 import { MdAppRegistration } from "react-icons/md";
 import { UserImageUpload, manAvatarURL } from "./UserImageUpload";
-import { AddUser } from "../../GetAndUpdateDataFromFront/GetAndUpdateDataFromBack";
+import {
+  AddUser,
+  IsUserExist,
+} from "../../GetAndUpdateDataFromFront/GetAndUpdateDataFromBack";
 import { User } from "../../GetAndUpdateDataFromFront/dbClasses";
 
 export function SiteRegistration() {
@@ -37,6 +40,23 @@ export function SiteRegistration() {
       </div>
     );
   }
+  function ResetForm() {
+    (document.querySelector(".Button") as HTMLButtonElement).disabled = true;
+    (document.querySelector(".Button") as HTMLButtonElement).id =
+      "RegistererButtonDisable";
+    (document.querySelector("#MaleRadioButton") as HTMLInputElement).checked =
+      true;
+    (document.querySelector("#FemaleRadioButton") as HTMLInputElement).checked =
+      false;
+
+    (document.querySelector("#userImage") as HTMLImageElement).src =
+      manAvatarURL;
+    (document.querySelector("#uploadImageStatus") as HTMLElement).innerHTML =
+      "Image not Loaded";
+    (document.querySelector("#uploadImageStatus") as HTMLElement).style.color =
+      "orange";
+    (document.querySelector("#userNameFile") as HTMLInputElement).value = "";
+  }
 
   function Registration() {
     const userName = document.querySelector("#UserName") as HTMLInputElement;
@@ -49,33 +69,34 @@ export function SiteRegistration() {
     ) as HTMLImageElement;
     let formError = document.querySelector("#FormsError") as HTMLElement;
 
-    AddUser(
-      new User(
-        "firstName",
-        "lastName",
-        userName.value,
-        password.value,
-        //userImageUrl.getAttribute("realSource")!
-        userImageUrl.src
-      )
-    );
+    IsUserExist(userName.value).then((result) => {
+      if (result === 1) {
+        console.log("user already exist ");
+        formError.style.color = "red";
+        formError.innerHTML = "user is already exist";
+        return;
+      }
+      let ans = AddUser(
+        new User(
+          "firstName",
+          "lastName",
+          userName.value,
+          password.value,
+          //userImageUrl.getAttribute("realSource")!
+          userImageUrl.src
+        )
+      );
 
-    formError.style.color = "green";
-    formError.innerHTML = "The registration to the site succeeded";
-    userName.value = "";
-    password.value = "";
-    RepeatPassword.value = "";
-    (document.querySelector(".Button") as HTMLButtonElement).disabled = true;
-    (document.querySelector(".Button") as HTMLButtonElement).id =
-      "RegistererButtonDisable";
-    (document.querySelector("#MaleRadioButton") as HTMLInputElement).checked =
-      false;
+      console.log(ans);
 
-    (document.querySelector("#FemaleRadioButton") as HTMLInputElement).checked =
-      true;
-    (document.querySelector("#userImage") as HTMLImageElement).src =
-      manAvatarURL;
-    (document.querySelector("#userNameFile") as HTMLInputElement).value = "";
+      formError.style.color = "green";
+      formError.innerHTML = "The registration to the site succeeded";
+      userName.value = "";
+      password.value = "";
+      RepeatPassword.value = "";
+
+      ResetForm();
+    });
   }
 
   function RegistererFormHeader(props: { title: string; upTitle: string }) {
@@ -128,19 +149,22 @@ export function SiteRegistration() {
       formError.innerHTML = "Some of the form inputs are empty";
       formError.style.color = "orange";
       (document.querySelector(".Button") as HTMLButtonElement).disabled = true;
-    } else if (repeatPassword.value !== password.value) {
+      return;
+    }
+    if (repeatPassword.value !== password.value) {
       (document.querySelector(".Button") as HTMLButtonElement).id =
         formError.innerHTML = "password is not equal to  repeat password";
       formError.style.color = "red";
       (document.querySelector(".Button") as HTMLButtonElement).disabled = true;
-    } else {
-      (document.querySelector(".Button") as HTMLButtonElement).id =
-        "RegistererButtonEnable";
-
-      formError.innerHTML = "Form is correct";
-      formError.style.color = "green";
-      (document.querySelector(".Button") as HTMLButtonElement).disabled = false;
+      return;
     }
+
+    (document.querySelector(".Button") as HTMLButtonElement).id =
+      "RegistererButtonEnable";
+
+    formError.innerHTML = "Form is correct";
+    formError.style.color = "green";
+    (document.querySelector(".Button") as HTMLButtonElement).disabled = false;
   }
 
   function Form(props: {}) {
