@@ -9,7 +9,6 @@ GO
 DROP DATABASE BikeDB;
 ------------------------------------------
 
-
 -- Create a new database called 'BikeDB'
 -- Connect to the 'master' database to run this snippet
 USE master
@@ -66,22 +65,23 @@ CREATE TABLE Users (
 	LastName    varchar(255) NOT NULL,
 	Uaddress    varchar(255) , 
 	UserName    varchar(255) NOT NULL, 
-	Upassword   varchar(255) NOT NULL
+	Upassword   varchar(255) NOT NULL,
+	imageUrl  varchar(255) NOT NULL
 );
 
 CREATE TABLE Entrance
  (
     id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	UserId int FOREIGN KEY REFERENCES Users(id),
+	UserId int FOREIGN KEY REFERENCES dbo.Users(id),
     MacAddress varchar(255) NOT NULL,
     LogInTime DateTime NOT NULL,
-	LogOutTime DateTime
+	LogOutTime DateTime 
 );
 
 CREATE TABLE BikesPictures
  (
     id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    EntranceId int FOREIGN KEY REFERENCES Users(id),
+    EntranceId int FOREIGN KEY REFERENCES dbo.Users(id),
     BikeName  varchar(255) NOT NULL,
     BikeManufacturer   varchar(255)NOT NULL,
 	PathToPicture  varchar(255) NOT NULL
@@ -90,7 +90,7 @@ CREATE TABLE BikesPictures
 CREATE TABLE  TrailsPictures
  (
     id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    entranceId int FOREIGN KEY REFERENCES Users(id),
+    entranceId int FOREIGN KEY REFERENCES dbo.Users(id),
     TrailName    varchar(255) NOT NULL,
     TrailLevel     varchar(255)NOT NULL,
 	PathToPicture  varchar(255) NOT NULL
@@ -99,8 +99,8 @@ CREATE TABLE  TrailsPictures
 CREATE TABLE  VotesAndResponsesTrails
  (
     id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    entranceId int FOREIGN KEY REFERENCES Entrance(id),
-    TrailId int FOREIGN KEY REFERENCES TrailsPictures(id),
+    entranceId int FOREIGN KEY REFERENCES dbo.Entrance(id),
+    TrailId int FOREIGN KEY REFERENCES dbo.TrailsPictures(id),
 	Vote int NOT NULL CHECK (Vote>0 AND Vote<6),
 	Comment   varchar(255),
 );
@@ -108,8 +108,8 @@ CREATE TABLE  VotesAndResponsesTrails
 CREATE TABLE  VotesAndResponsesBikes
  (
     id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    entranceId int FOREIGN KEY REFERENCES Entrance(id),
-    BikeId int FOREIGN KEY REFERENCES BikesPictures(id),
+    entranceId int FOREIGN KEY REFERENCES dbo.Entrance(id),
+    BikeId int FOREIGN KEY REFERENCES dbo.BikesPictures(id),
 	Vote int NOT NULL CHECK (Vote>0 AND Vote<6),
 	Comment   varchar(255),
 	
@@ -120,14 +120,14 @@ GO
 /* ------------------------ Insert Data into Tables -------------------- */
 
 /*----------Users--------------------------------*/
-INSERT INTO Users (FirstName,LastName,UserName,uPassword)VALUES ('Benny', 'Yoav','Benny',1234 );
-INSERT INTO Users (FirstName,LastName,UserName,uPassword)VALUES ('Jhone', 'Joe','Jhone',1234 );
-INSERT INTO Users (FirstName,LastName,UserName,uPassword)VALUES ('Hillel', 'Cohen','Hillel',1234 );
-INSERT INTO Users (FirstName,LastName,UserName,uPassword)VALUES ('Dan', 'Levi','Hillel',1234 );
-INSERT INTO Users (FirstName,LastName,UserName,uPassword)VALUES ('Yitzhak', 'Bardugo','Yb',1234 );
-INSERT INTO Users VALUES ('Lucy', 'Mandes','17 Eshel st, Haifa','Am',1234 );
-INSERT INTO Users VALUES ('Audi', 'Meir','Raines 5 st, Jerusalem','Am',1234 );
-INSERT INTO Users VALUES ('Ehud', 'Barak','Harel 18 st, Tel aviv','Pm',1234 );
+INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl)VALUES ('Benny', 'Yoav','Benny',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png' );
+INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl)VALUES ('Jhone', 'Joe','Jhone',1234 ,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png');
+INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl)VALUES ('Hillel', 'Cohen','Hillel',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png' );
+INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl)VALUES ('Dan', 'Levi','Hillel',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png' );
+INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl)VALUES ('Yitzhak', 'Bardugo','Yb',1234 ,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png');
+INSERT INTO Users VALUES ('Lucy', 'Mandes','17 Eshel st, Haifa','Am',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png' );
+INSERT INTO Users VALUES ('Audi', 'Meir','Raines 5 st, Jerusalem','Am',1234 ,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png');
+INSERT INTO Users VALUES ('Ehud', 'Barak','Harel 18 st, Tel aviv','Pm',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png' );
 
 /*----------Entrance--------------------------------*/
 
@@ -163,20 +163,23 @@ INSERT INTO Entrance VALUES (8,'33-22-F7-2E-EE-AA','2010-10-01 11:12:53','2010-1
 
 
 /*----------BikesPictures--------------------------------*/
-INSERT INTO BikesPictures VALUES (1,'Storm3','Norco',
+	INSERT INTO BikesPictures VALUES (1,'Storm3','Norco',
 	'https://cdn.shoplightspeed.com/shops/619643/files/27278164/image.jpg');
-INSERT INTO BikesPictures VALUES (1,'Storm5','Norco',
+	INSERT INTO BikesPictures VALUES (1,'Storm5','Norco',
 	'https://s3-ap-southeast-2.amazonaws.com/pv-res-au/PROPERTY/41988/58ac1c2a-2158-4f27-ac87-85af053ee051/whatsapp-image-2021-02-16-at-64208-pm.jpeg')
-INSERT INTO BikesPictures VALUES (5,'Storm5','Norco',
-	'https://s3-ap-southeast-2.amazonaws.com/pv-res-au/PROPERTY/41988/58ac1c2a-2158-4f27-ac87-85af053ee051/whatsapp-image-2021-02-16-at-64208-pm.jpeg')
-INSERT INTO BikesPictures VALUES (8,'Storm7','Norco',
+	INSERT INTO BikesPictures VALUES (8,'Storm7','Norco',
 	'https://sportrentals.ca/images/2016-Norco-Storm-7.3.jpg')
-INSERT INTO BikesPictures VALUES (8,'Storm7','Norco',
-	'https://sportrentals.ca/images/2016-Norco-Storm-7.3.jpg')
-INSERT INTO BikesPictures VALUES (2,'ROCKHOPPER SPORT','Specialized',
+
+	INSERT INTO BikesPictures VALUES (2,'ROCKHOPPER SPORT','Specialized',
 	'https://assets.specialized.com/i/specialized/91520-65_ROCKHOPPER-SPORT-29-BLZ-ICEPPYA_HERO?bg=rgb(241,241,241)&w=1600&h=900&fmt=auto');
-INSERT INTO BikesPictures VALUES (3,'STUMPJUMPER','Specialized',
-	'"https://images.immediate.co.uk/production/volatile/sites/21/2022/05/Specialized-Stumpjumper-Comp-01-26ac481.jpg?quality=90&resize=620,413');
+	INSERT INTO BikesPictures VALUES (3,'STUMPJUMPER','Specialized',
+	'https://images.immediate.co.uk/production/volatile/sites/21/2022/05/Specialized-Stumpjumper-Comp-01-26ac481.jpg?quality=90&resize=620,413');
+
+	INSERT INTO BikesPictures VALUES (5,'Epic PRO','Specialized',
+	'https://assets.specialized.com/i/specialized/97620-10_EPIC-PRO-ABLN-BLK_HERO?bg=rgb(241,241,241)&w=1600&h=900&fmt=auto')
+	INSERT INTO BikesPictures VALUES (8,'Epic Pro18','Specialized',
+	'https://fullsus.co.za/wp-content/uploads/2018/04/Credit-images-Etienne-van-Rensburg.jpg')
+
 Go
 
 /*---------- Trails Pictures--------------------------------*/
@@ -217,9 +220,25 @@ INSERT INTO VotesAndResponsesBikes VALUES (12,3,5,'Agile and fast bikes despite 
 INSERT INTO VotesAndResponsesBikes (entranceId,BikeId,Vote) VALUES (15,4,1);
 INSERT INTO VotesAndResponsesBikes (entranceId,BikeId,Vote) VALUES (16,1,3);
 INSERT INTO VotesAndResponsesBikes (entranceId,BikeId,Vote,Comment) VALUES (18,3,5,'The best purchase I have made. I recommend it to anyone who can afford it');
+INSERT INTO VotesAndResponsesBikes (entranceId,BikeId,Vote) VALUES (15,6,4)
+INSERT INTO VotesAndResponsesBikes (entranceId,BikeId,Vote) VALUES (15,5,4)
 INSERT INTO VotesAndResponsesBikes (entranceId,BikeId,Vote) VALUES (15,7,4)
-GO
 
+	 
+GO
+/*----------------------CREATE PROCEDUREs---------------------------------------*/
+DROP PROCEDURE IF EXISTS dbo.IsUserExist
+GO  
+CREATE PROCEDURE IsUserExist
+	@receivedUserName varchar(255)
+AS
+	SET NOCOUNT ON;
+	if (SELECT username from Users where Users.UserName = @receivedUserName)>0
+	DECLARE @ans int;
+	SET @ans=0
+	SELECT 'ans' = @ans;
+Go
+EXEC IsUserExist "Benny"
 /*----------------------CREATE PROCEDUREs---------------------------------------*/
 
 DROP PROCEDURE IF EXISTS dbo.GetAllUserNames;  
@@ -247,8 +266,6 @@ EXEC GetNumberOfUsers;
 GO
 /*------------------------------------------------------------------------------*/
 
-
-
 DROP PROCEDURE IF EXISTS dbo.GetAllVotesForBike;  
 GO  
 
@@ -266,6 +283,51 @@ GO
 GO--*/
 /*--------------------------------------------------------------------------*/
 
+DROP PROCEDURE IF EXISTS dbo.GetNumberOfVotesForBike;  
+GO  
+CREATE PROCEDURE GetNumberOfVotesForBike @reqBikeId int
+AS
+	SET NOCOUNT ON;
+	DECLARE @NumberOfVotes int
+	SET @NumberOfVotes = 
+	(
+		SELECT COUNT (*)  as ans
+		FROM VotesAndResponsesBikes  INNER JOIN Entrance
+		on VotesAndResponsesBikes.entranceId= Entrance.id INNER JOIN Users
+		on Entrance.userId= Users.id
+		Where @reqBikeId = VotesAndResponsesBikes.BikeId
+	)
+	SELECT 'NumberOfVote' = @NumberOfVotes ;
+	GO
+EXEC GetNumberOfVotesForBike @reqBikeId = 1;
+GO
+/*--------------------------------------------------------------------------*/
+DROP PROCEDURE IF EXISTS dbo.GetNumberOfVotesForTrail;  
+GO  
+CREATE PROCEDURE GetNumberOfVotesForTrail @reqTrailID int
+AS
+	SET NOCOUNT ON;
+	DECLARE @NumberOfVotes int
+	SET @NumberOfVotes = 
+	(
+		SELECT COUNT (*)  as ans
+		FROM VotesAndResponsesTrails  INNER JOIN Entrance
+		on VotesAndResponsesTrails.entranceId= Entrance.id INNER JOIN Users
+		on Entrance.userId= Users.id
+		Where @reqTrailID = VotesAndResponsesTrails.TrailId
+	)
+	SELECT 'NumberOfVote' = @NumberOfVotes ;
+	GO
+EXEC GetNumberOfVotesForTrail @reqTrailID = 1;
+GO
+
+
+
+
+
+
+/*--------------------------------------------------------------------------*/
+
 DROP PROCEDURE IF EXISTS dbo.GetAllVotesForTrail;  
 GO  
 
@@ -273,7 +335,7 @@ CREATE PROCEDURE GetAllVotesForTrail @reqTrailId int
 AS
 	SET NOCOUNT ON;
 	SELECT  Users.firstName + '  ' + Users.LastName as FullName ,
-	VotesAndResponsesTrails.Vote, VotesAndResponsesTrails.Comment,Entrance.LogInTime
+	VotesAndResponsesTrails.Vote, VotesAndResponsesTrails.Comment,Entrance.LogInTime 
 	FROM VotesAndResponsesTrails  INNER JOIN Entrance
 	on VotesAndResponsesTrails.entranceId= Entrance.id INNER JOIN Users
 	on Entrance.userId= Users.id
@@ -290,13 +352,14 @@ CREATE PROCEDURE AddUser
 	@lastName    varchar(255),
 	@uAddress    varchar(255) , 
 	@userName    varchar(255) , 
-	@upassword   varchar(255) 
+	@upassword   varchar(255) ,
+	@imageUrl   varchar(255)
 	
 AS
 BEGIN--start batch 
       SET NOCOUNT ON;
-	  INSERT INTO Users (FirstName,LastName,uAddress,UserName,uPassword)
-      VALUES (@firstName, @lastName,@uAddress, @userName, @upassword)
+	  INSERT INTO Users (FirstName,LastName,uAddress,UserName,uPassword,imageUrl)
+      VALUES (@firstName, @lastName,@uAddress, @userName, @upassword,@imageUrl)
       SELECT SCOPE_IDENTITY() as userID --returns the last identity value generated for any table in the current session and the current scope
 END
 GO
@@ -317,7 +380,7 @@ BEGIN--start batch
       SELECT SCOPE_IDENTITY() as EntranceID --returns the last identity value generated for any table in the current session and the current scope
 END
 GO
-/*--EXEC AddEntrence @macAddress='70-FF-CC-6A-DD-19', @userId =1;
+/*EXEC AddEntrence @macAddress='70-FF-CC-6A-DD-19', @userId =1;
 GO--*/
 
 /*--------------------------------------------------------------------------*/
@@ -330,10 +393,10 @@ AS
 	UPDATE Entrance
 	SET LogOutTime= GETDATE()
 	WHERE id=@entranceId ;
-	SELECT LogOutTime as LogOutTime from  Entrance WHERE id=@entranceId ; ;
+	SELECT * from  Entrance WHERE id=@entranceId ; 
 GO
-/*--EXEC UpdateEntranceLogOutTime @entrenceId =22;
-Go--*/
+EXEC UpdateEntranceLogOutTime @entranceId =1;
+Go
 /*--------------------------------------------------------------------------*/
 
 DROP PROCEDURE IF EXISTS HasUserVoteToBIke
@@ -377,8 +440,8 @@ AS
 	end
 	SELECT 'ans' = @ans;
 GO
-/*--EXEC HasUserVoteToTRail @userID =2, @trailId = 1
-Go--*/
+EXEC HasUserVoteToTRail @userID =2, @trailId = 1
+Go
 		
 /*--------------------------------------------------------------------------*/		
 DROP PROCEDURE IF EXISTS GetAverageGradingBike
@@ -396,9 +459,10 @@ AS
 	)
 	INSERT INTO @tempTable  EXEC  GetAllVotesForBike @reqBikeId = @reqBikeId
 	SELECT AVG(Vote)  as  bikeAverageGrade from @tempTable
+	
 Go
-/*--EXEC  GetAverageGradingBike @reqBikeId = 7
-Go--*/
+/*EXEC  GetAverageGradingBike @reqBikeId = 7
+Go*/
 /*--------------------------------------------------------------------------*/	
 DROP PROCEDURE IF EXISTS GetAverageGradingTrail
 GO
@@ -416,8 +480,8 @@ AS
 	INSERT INTO @tempTable  EXEC  GetAllVotesForTrail @reqTrailId = @reqTrailId
 	SELECT ROUND(AVG(Vote),2,1) as  TrailAverageGrade from @tempTable as  AverageGrade
 Go
-/*--EXEC  GetAverageGradingTrail @reqTrailId = 4
-Go--*/
+/*EXEC  GetAverageGradingTrail @reqTrailId = 4
+Go*/
 /*--------------------------------------------------------------------------*/	
 DROP PROCEDURE IF EXISTS GetAllActivityOfUser
 GO
@@ -497,3 +561,87 @@ GO
  /*---EXEC GetAllActivityOfUser 3;
 GO--*/
 
+/*--------------------------------------------------------------------------*/	
+DROP PROCEDURE IF EXISTS GetAllBikes
+GO
+CREATE PROCEDURE GetAllBikes 
+AS
+SET NOCOUNT ON;
+
+	/*DECLARE @tempTable table /*recived Table te
+	mplate from  GetAllVotesForTrail  */ 
+	(
+		 id int ,
+		 name varchar(255) NOT NULL,
+		 picture varchar(255) NOT NULL,
+    	 manufacturer varchar(255) NOT NULL
+		
+	)
+	INSERT INTO @tempTable   (id,name,Picture,manufacturer)*/
+	
+	SELECT BikesPictures.id, 
+	BikesPictures.BikeName /*as name,*/,
+	BikesPictures.PathToPicture /*as Picture*/,
+	BikesPictures.BikeManufacturer /*as manufacturer*/
+	
+	FROM BikesPictures  INNER JOIN Entrance
+	on BikesPictures.EntranceId = Entrance.id
+	/*select *  from @tempTable*/
+GO
+EXEC GetAllBikes 
+GO
+/*--------------------------------------------------------------------------*/	
+DROP PROCEDURE IF EXISTS GetAllTrials
+GO
+CREATE PROCEDURE GetAllTrials 
+AS
+SET NOCOUNT ON;
+	SELECT TrailsPictures.id,
+	TrailsPictures.TrailName ,
+	TrailsPictures.PathToPicture,
+	TrailsPictures.TrailLevel
+
+	FROM   TrailsPictures INNER JOIN Entrance
+	on TrailsPictures.entranceId = Entrance.id
+GO
+/*EXEC GetAllTrials 
+GO*/
+/*--------------------------------------------------------------------------*/	
+DROP PROCEDURE IF EXISTS AddVoteAndResponseBike
+GO
+CREATE PROCEDURE AddVoteAndResponseBike 
+		@entranceId  int,
+		@BikeId    int,
+		@Vote        int, 
+		@Comment    varchar(255)
+AS	
+	
+		
+	SET NOCOUNT ON;
+		  INSERT INTO VotesAndResponsesBikes (entranceId,BikeId,Vote,Comment)
+		  VALUES (@entranceId, @BikeId ,@Vote, @Comment)
+		  	
+		DECLARE @ans int;
+		SET @ans = 1
+		SELECT 'ans' = @ans;
+GO
+
+EXEC AddVoteAndResponseBike 1,1,5,'I love this trail';
+GO
+/*--------------------------------------------------------------------------*/	
+DROP PROCEDURE IF EXISTS AddVoteAndResponseTrials
+GO
+CREATE PROCEDURE AddVoteAndResponseTrials 
+		@entranceId  int,
+		@BikeId    int,
+		@Vote        int, 
+		@Comment    varchar(255)
+AS	
+	SET NOCOUNT ON;
+		  INSERT INTO VotesAndResponsesTrails (entranceId,Trailid,Vote,Comment)
+		  VALUES (@entranceId, @BikeId ,@Vote, @Comment)
+GO
+
+EXEC AddVoteAndResponseTrials 1,1,5,'I love this trail';
+GO
+/*--------------------------------------------------------------------------*/	
