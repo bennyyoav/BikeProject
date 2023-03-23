@@ -229,16 +229,35 @@ GO
 /*----------------------CREATE PROCEDUREs---------------------------------------*/
 DROP PROCEDURE IF EXISTS dbo.IsUserExist
 GO  
-CREATE PROCEDURE IsUserExist
-	@receivedUserName varchar(255)
+CREATE PROCEDURE IsUserExist  @receivedUserName varchar(255)
 AS
 	SET NOCOUNT ON;
-	if (SELECT username from Users where Users.UserName = @receivedUserName)>0
 	DECLARE @ans int;
 	SET @ans=0
+	if  (SELECT count( *) from Users where Users.UserName = @receivedUserName)>0
+	SET @ans=1
 	SELECT 'ans' = @ans;
 Go
-EXEC IsUserExist "Benny"
+/*EXEC IsUserExist "Jhone"*/
+
+/*----------------------CREATE PROCEDUREs---------------------------------------*/
+
+
+
+DROP PROCEDURE IF EXISTS dbo.CheckPassword
+GO  
+
+CREATE PROCEDURE CheckPassword  @receivedUserName varchar(255), @receivedpassword int
+AS
+	SET NOCOUNT ON;
+	DECLARE @ans int=0;
+	if  (select count( *) from Users where Users.UserName = @receivedUserName and
+		Users.Upassword=@receivedpassword)>0
+		set @ans=1
+
+	SELECT 'ans' = @ans;
+Go
+/*EXEC CheckPassword "Jhone", 12345
 /*----------------------CREATE PROCEDUREs---------------------------------------*/
 
 DROP PROCEDURE IF EXISTS dbo.GetAllUserNames;  
