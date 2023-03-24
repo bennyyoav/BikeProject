@@ -418,19 +418,19 @@ GO--*/
 
 /*--------------------------------------------------------------------------*/
 
-DROP PROCEDURE IF EXISTS dbo.AddScoureToUser;  
+DROP PROCEDURE IF EXISTS dbo.AddScoreToUser;  
 GO 
-CREATE PROCEDURE AddScoureToUser
+CREATE PROCEDURE AddScoreToUser
 	@userName varchar(255),
-	@addScoure int
+	@score int
 AS
 	UPDATE dbo.Users
-	SET score +=@addScoure
+	SET score +=@AddScore
 	WHERE UserName = @userName;
 	DECLARE @ans int =1;
 	SELECT 'ans' = @ans;/*return always true*/
 GO
-EXEC AddScoureToUser "Benny",20  ;
+EXEC AddScoreToUser "Benny",20  ;
 Go
 
 
