@@ -62,6 +62,8 @@ router.get("/CheckPassword/:userName/:password",bikesRepository.CheckPassword);
 
 router.get("/GetUserByUserName/:userName/",bikesRepository.GetUserByUserName);
 
+router.get("/AddScoreToUser/:userName/:score",bikesRepository.AddScoreToUser);
+
 router.post("/getUserImage/", uploadUserImages.single('file'), function (req, res) {
 
   console.log("at getUserImage")      

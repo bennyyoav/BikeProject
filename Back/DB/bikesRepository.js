@@ -179,6 +179,7 @@ const AddUser = async (req,res) => {
         .input('UserName', mssql.VarChar, req.body.UserName)
         .input('uPassword', mssql.VarChar, req.body.uPassword)
         .input('imageUrl', mssql.VarChar, req.body.imageUrl)
+        .input('score', mssql.Int, req.body.score)
         .execute('AddUser');
         res.send(reqRes.recordset);   
     } 
@@ -407,3 +408,27 @@ const GetUserByUserName = async (req,res) => {
 }
 
 module.exports.GetUserByUserName = GetUserByUserName;
+
+
+
+
+const AddScoreToUser = async (req,res) => {
+    try
+     {
+        console.log("at AddScoreToUser");
+        let pool = await mssql.connect(sqlConfig);
+        let reqRes = await pool.request()
+        .input('userName', mssql.VarChar, req.params.userName)
+        .input('score', mssql.VarChar, req.params.score)
+        .execute('AddScoreToUser');
+        res.send(reqRes.recordset);
+    } 
+    catch (err) 
+    {
+        console.log("there was an error while sending Query to DB: ", err);
+        res.send(err)
+    }
+
+}
+
+module.exports.AddScoreToUser = AddScoreToUser;
