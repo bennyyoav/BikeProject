@@ -82,8 +82,8 @@ export function SiteRegistration() {
           "lastName",
           userName.value,
           password.value,
-          //userImageUrl.getAttribute("realSource")!
-          userImageUrl.src
+          userImageUrl.src,
+          10
         )
       );
 

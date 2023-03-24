@@ -10,15 +10,26 @@ import {} from "./GetAndUpdateDataFromFront/GetAndUpdateDataFromBack";
 import { LogIN } from "./Component/LogIn/LogIn";
 
 function App() {
-  let [userPerformLogIn, setuserPerformLogIn] = useState<boolean>(false);
+  let [userPerformLogIn, setUserPerformLogIn] = useState<boolean>(false);
+  let [userName, setUserName] = useState<string>("");
   return (
     <div className="App">
-      <NavBar />
+      <NavBar userName={userName} />
       <Routes>
         {userPerformLogIn === true && (
           <Route path="/" element={<GallerySelector />} />
         )}
-        {userPerformLogIn === false && <Route path="/" element={<LogIN />} />}
+        {userPerformLogIn === false && (
+          <Route
+            path="/"
+            element={
+              <LogIN
+                setUserPerformLogIn={setUserPerformLogIn}
+                setUserName={setUserName}
+              />
+            }
+          />
+        )}
         <Route
           path="/AboutAs"
           element={<AboutAs userPerformLogIn={userPerformLogIn} />}

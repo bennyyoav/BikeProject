@@ -124,6 +124,15 @@ export const IsUserExist = (userName: String) => {
   );
 };
 
+//======================================================
+export const CheckPassword = (userName: String, Password: string) => {
+  return postData(
+    `http://${BACK_SERVER}/users/CheckPassword/${userName}/${Password}`,
+    `CheckPassword`,
+    ResponseToCheckPassword
+  );
+};
+
 //=======================================================
 export const GetBikes = () => {
   return postData(
@@ -190,6 +199,17 @@ export const AddVoteAndResponseBike = (Vote: AddVoteBike) => {
     Vote
   );
 };
+
+//=========================================================
+
+export const GetUserByUserName = (userName: string) => {
+  return postData(
+    `http://${BACK_SERVER}/users/GetUserByUserName/${userName}`,
+    `GetUserByUserName ${userName}`,
+    ResponseToGetUserByUserName
+  );
+};
+
 //=========================================================
 
 function ResponseToAddEntrance(ans: { EntranceID: string }[]) {
@@ -332,6 +352,16 @@ function padTo2Digits(num: number) {
 function ResponseToIsUserExist(ans: { ans: boolean }[]) {
   console.log(`IsUserExist ans  =${ans[0].ans}`);
   return ans[0].ans;
+}
+function ResponseToCheckPassword(ans: { ans: boolean }[]) {
+  console.log(`CheckPassword ans  =${ans[0].ans}`);
+  return ans[0].ans;
+}
+
+function ResponseToGetUserByUserName(ans: User[]) {
+  console.log(`GetUserByUserName ans  = ${JSON.stringify(ans[0])}`);
+
+  return ans[0];
 }
 //==========utility functions end===================//
 

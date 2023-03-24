@@ -1,9 +1,28 @@
-.NavBar
+#NavBarAdapter
 {
     display: flex;
     padding: 10px;
     background-color: aqua;
   
+}
+.NavBar
+{
+    display: flex;
+}
+.userData
+{
+    display: flex;
+    align-items: center;
+}
+#navUserImage 
+{
+    border: 5px solid #ddd;
+  border-radius: 4px;
+  padding: 2px;
+  width: 90px;
+
+  margin: 5px;
+ 
 }
 
 .NavBar .bikeIcon
@@ -29,4 +48,10 @@
 {
     background-color: lightgreen;
     
+}
+
+#NavBarAdapter
+{
+    display:flex;
+    justify-content: space-between;
 }

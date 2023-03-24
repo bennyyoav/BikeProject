@@ -12,25 +12,28 @@ export class Entrance {
 
 export class User {
   id?: number = -1;
-  firstName: String;
-  lastName: String;
-  userName: String;
-  uPassword: String;
-  uAddress?: String = "";
-  imageUrl: String;
+  firstName: string;
+  lastName: string;
+  UserName: string;
+  uPassword: string;
+  uAddress?: string = "";
+  imageUrl: string;
+  score: Number;
   constructor(
-    FirstName: String,
-    lastName: String,
-    userName: String,
-    uPassword: String,
-    imageUrl: String,
-    uAddress: String | null = null
+    FirstName: string,
+    lastName: string,
+    UserName: string,
+    uPassword: string,
+    imageUrl: string,
+    score: Number,
+    uAddress: string | null = null
   ) {
     this.firstName = FirstName;
     this.lastName = lastName;
-    this.userName = userName;
+    this.UserName = UserName;
     this.uPassword = uPassword;
     this.imageUrl = imageUrl;
+    this.score = score;
     if (uAddress) {
       this.uAddress = uAddress;
     }
