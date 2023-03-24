@@ -211,6 +211,15 @@ export const GetUserByUserName = (userName: string) => {
 };
 
 //=========================================================
+export const AddScoreToUser = (userName: string, score: Number) => {
+  return postData(
+    `http://${BACK_SERVER}/users/AddScoreToUser/${userName}/${score}`,
+    `AddScoreToUser ${userName}`,
+    ResponseToAddScoreToUser
+  );
+};
+
+//=========================================================
 
 function ResponseToAddEntrance(ans: { EntranceID: string }[]) {
   //ans has field  of  EntranceID
@@ -361,6 +370,11 @@ function ResponseToCheckPassword(ans: { ans: boolean }[]) {
 function ResponseToGetUserByUserName(ans: User[]) {
   console.log(`GetUserByUserName ans  = ${JSON.stringify(ans[0])}`);
 
+  return ans[0];
+}
+
+function ResponseToAddScoreToUser(ans: boolean[]) {
+  console.log(`ResponseToAddScoreToUser =${ans[0]}`);
   return ans[0];
 }
 //==========utility functions end===================//

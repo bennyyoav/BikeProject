@@ -59,22 +59,6 @@ export interface Activity {
   time: Date;
 }
 
-// export interface bike {
-//   id: number;
-//   BikeName: String;
-//   BikeManufacturer: String;
-//   PathToPicture: String;
-//   UserId: number;
-// }
-
-// export interface Trail {
-//   id: number;
-//   PathToPicture: String;
-//   TrailLevel: String;
-//   TrailName: String;
-//   UserId: number;
-// }
-
 export function sqlToJsDate(sqlDate: String) {
   //sqlDate in SQL DATETIME format ("yyyy-mm-ddThh:mm:ss.msZ")
   var sqlDateArr1 = sqlDate.split("-");
