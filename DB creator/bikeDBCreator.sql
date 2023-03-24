@@ -66,7 +66,8 @@ CREATE TABLE Users (
 	Uaddress    varchar(255) , 
 	UserName    varchar(255) NOT NULL, 
 	Upassword   varchar(255) NOT NULL,
-	imageUrl  varchar(255) NOT NULL
+	imageUrl  varchar(255) NOT NULL,
+	score   int
 );
 
 CREATE TABLE Entrance
@@ -120,14 +121,14 @@ GO
 /* ------------------------ Insert Data into Tables -------------------- */
 
 /*----------Users--------------------------------*/
-INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl)VALUES ('Benny', 'Yoav','Benny',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png' );
-INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl)VALUES ('Jhone', 'Joe','Jhone',1234 ,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png');
-INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl)VALUES ('Hillel', 'Cohen','Hillel',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png' );
-INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl)VALUES ('Dan', 'Levi','Hillel',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png' );
-INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl)VALUES ('Yitzhak', 'Bardugo','Yb',1234 ,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png');
-INSERT INTO Users VALUES ('Lucy', 'Mandes','17 Eshel st, Haifa','Am',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png' );
-INSERT INTO Users VALUES ('Audi', 'Meir','Raines 5 st, Jerusalem','Am',1234 ,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png');
-INSERT INTO Users VALUES ('Ehud', 'Barak','Harel 18 st, Tel aviv','Pm',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png' );
+INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl,score)VALUES ('Benny', 'Yoav','Benny',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png',100 );
+INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl,score)VALUES ('Jhone', 'Joe','Jhone',1234 ,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png',70);
+INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl,score)VALUES ('Hillel', 'Cohen','Hillel',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png',50 );
+INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl,score)VALUES ('Dan', 'Levi','Hillel',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png',20 );
+INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl,score)VALUES ('Yitzhak', 'Bardugo','Yb',1234 ,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png',10);
+INSERT INTO Users VALUES ('Lucy', 'Mandes','17 Eshel st, Haifa','Am',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png' ,10);
+INSERT INTO Users VALUES ('Audi', 'Meir','Raines 5 st, Jerusalem','Am',1234 ,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png',10);
+INSERT INTO Users VALUES ('Ehud', 'Barak','Harel 18 st, Tel aviv','Pm',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png',10 );
 
 /*----------Entrance--------------------------------*/
 
@@ -229,36 +230,48 @@ GO
 /*----------------------CREATE PROCEDUREs---------------------------------------*/
 DROP PROCEDURE IF EXISTS dbo.IsUserExist
 GO  
-CREATE PROCEDURE IsUserExist  @receivedUserName varchar(255)
+CREATE PROCEDURE IsUserExist  @userName varchar(255)
 AS
 	SET NOCOUNT ON;
 	DECLARE @ans int;
 	SET @ans=0
-	if  (SELECT count( *) from Users where Users.UserName = @receivedUserName)>0
+	if  (SELECT count( *) from Users where Users.UserName = @userName)>0
 	SET @ans=1
 	SELECT 'ans' = @ans;
 Go
 /*EXEC IsUserExist "Jhone"*/
 
-/*----------------------CREATE PROCEDUREs---------------------------------------*/
-
+/*---------------------------------------------------------------------------*/
 
 
 DROP PROCEDURE IF EXISTS dbo.CheckPassword
 GO  
 
-CREATE PROCEDURE CheckPassword  @receivedUserName varchar(255), @receivedpassword int
+CREATE PROCEDURE CheckPassword  @userName varchar(255), @password varchar(255)
 AS
 	SET NOCOUNT ON;
 	DECLARE @ans int=0;
-	if  (select count( *) from Users where Users.UserName = @receivedUserName and
-		Users.Upassword=@receivedpassword)>0
+	if  (select count( *) from Users where Users.UserName = @userName and
+		Users.Upassword=@password)>0
 		set @ans=1
 
 	SELECT 'ans' = @ans;
 Go
 /*EXEC CheckPassword "Jhone", 12345*/
-/*----------------------CREATE PROCEDUREs---------------------------------------*/
+/*---------------------------------------------------------------------------*/
+DROP PROCEDURE IF EXISTS dbo.GetUserByUserName 
+GO  
+CREATE PROCEDURE GetUserByUserName  @userName varchar(255)
+AS
+  SELECT *
+  FROM Users
+  where Users.UserName =@userName
+
+Go
+/*EXEC GetUserByUserName "Jhone"*/
+
+/*---------------------------------------------------------------------------*/
+
 
 DROP PROCEDURE IF EXISTS dbo.GetAllUserNames;  
 GO  
@@ -372,13 +385,14 @@ CREATE PROCEDURE AddUser
 	@uAddress    varchar(255) , 
 	@userName    varchar(255) , 
 	@upassword   varchar(255) ,
-	@imageUrl   varchar(255)
+	@imageUrl   varchar(255),
+	@scoure int
 	
 AS
 BEGIN--start batch 
       SET NOCOUNT ON;
-	  INSERT INTO Users (FirstName,LastName,uAddress,UserName,uPassword,imageUrl)
-      VALUES (@firstName, @lastName,@uAddress, @userName, @upassword,@imageUrl)
+	  INSERT INTO Users (FirstName,LastName,uAddress,UserName,uPassword,imageUrl,score)
+      VALUES (@firstName, @lastName,@uAddress, @userName, @upassword,@imageUrl,@scoure)
       SELECT SCOPE_IDENTITY() as userID --returns the last identity value generated for any table in the current session and the current scope
 END
 GO
@@ -403,6 +417,25 @@ GO
 GO--*/
 
 /*--------------------------------------------------------------------------*/
+
+DROP PROCEDURE IF EXISTS dbo.AddScoureToUser;  
+GO 
+CREATE PROCEDURE AddScoureToUser
+	@userName varchar(255),
+	@addScoure int
+AS
+	UPDATE dbo.Users
+	SET score +=@addScoure
+	WHERE UserName = @userName;
+	DECLARE @ans int =1;
+	SELECT 'ans' = @ans;/*return always true*/
+GO
+EXEC AddScoureToUser "Benny",20  ;
+Go
+
+
+/*--------------------------------------------------------------------------*/
+
 DROP PROCEDURE IF EXISTS dbo.UpdateEntranceLogOutTime; --update to current local time  
 GO 
 CREATE PROCEDURE UpdateEntranceLogOutTime  
