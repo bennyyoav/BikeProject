@@ -20,6 +20,7 @@
   border-radius: 4px;
   padding: 2px;
   width: 90px;
+  height:60px;
 
   margin: 5px;
  
@@ -54,4 +55,9 @@
 {
     display:flex;
     justify-content: space-between;
+}
+#helloAndScore
+{
+    padding: 5px;
+    font-style: italic;
 }

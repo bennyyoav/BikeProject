@@ -386,13 +386,14 @@ CREATE PROCEDURE AddUser
 	@userName    varchar(255) , 
 	@upassword   varchar(255) ,
 	@imageUrl   varchar(255),
-	@scoure int
+	@score int
 	
 AS
 BEGIN--start batch 
       SET NOCOUNT ON;
 	  INSERT INTO Users (FirstName,LastName,uAddress,UserName,uPassword,imageUrl,score)
-      VALUES (@firstName, @lastName,@uAddress, @userName, @upassword,@imageUrl,@scoure)
+      VALUES (@firstName, @lastName,@uAddress, @userName, @upassword,@imageUrl,	@score )
+
       SELECT SCOPE_IDENTITY() as userID --returns the last identity value generated for any table in the current session and the current scope
 END
 GO
@@ -425,7 +426,8 @@ CREATE PROCEDURE AddScoreToUser
 	@score int
 AS
 	UPDATE dbo.Users
-	SET score +=@AddScore
+	SET score +=@score 
+
 	WHERE UserName = @userName;
 	DECLARE @ans int =1;
 	SELECT 'ans' = @ans;/*return always true*/

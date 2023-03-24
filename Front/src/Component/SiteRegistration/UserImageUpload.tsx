@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./UserImageUpload.css";
-//const images = require.context("C:/Users/benny/Desktop/bike_prog/images");
 
 const BACK_SERVER = "localhost";
 export const manAvatarURL =
@@ -19,8 +18,7 @@ export function UserImageUpload() {
   const [enableUploadPictureButton, setEnableUploadPictureButton] =
     useState(false);
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     let formData = new FormData();
     formData.append("file", image.data);
     fetch(`http://${BACK_SERVER}/users/getUserImage`, {
@@ -31,11 +29,11 @@ export function UserImageUpload() {
         response.json().then((response) => {
           console.log("response=", response);
           let loadedImageRelativePath = `/../../${response.file
-            .split("bike_prog\\")[1]
+            .split("public\\")[1]
             .replaceAll("\\", "/")}`;
 
           console.log(loadedImageRelativePath);
-          setImageUrl(loadedImageRelativePath);
+          setImageUrl(`require(${loadedImageRelativePath})`);
 
           setUploadImageStatus("Image loaded successfully");
           setEnableUploadPictureButton(false);

@@ -3,6 +3,7 @@ import { GetUserByUserName } from "../../GetAndUpdateDataFromFront/GetAndUpdateD
 import { User } from "../../GetAndUpdateDataFromFront/dbClasses";
 import "./NavBar.css";
 import { useState } from "react";
+import { TfiCup } from "react-icons/tfi";
 
 export function updateUserData(
   setUser: React.Dispatch<React.SetStateAction<User | undefined>>,
@@ -32,7 +33,8 @@ export function NavBar(props: { userName: string }) {
   const navigate = useNavigate();
 
   return (
-    <div id="NavBarAdapter">
+    //@ts-ignore
+    <div id="NavBarAdapter" user_id={user?.id}>
       <div className="NavBar">
         <img
           className="bikeIcon"
@@ -70,11 +72,15 @@ export function NavBar(props: { userName: string }) {
           </div>
         </div>
       </div>
+
       {user !== null && user !== undefined ? (
         <div className="userData">
           <div id="helloAndScore">
             <div>hello {user.UserName}</div>
-            <div>score:{user.score as number}</div>
+            <div>your score is: {user.score as number}</div>
+            <div id="cupIcon">
+              <TfiCup />
+            </div>
           </div>
           <div id="image Div">
             <img src={user.imageUrl} id="navUserImage" alt="userSmallPicture" />
