@@ -176,7 +176,7 @@ const AddUser = async (req,res) => {
         .input('firstName', mssql.VarChar, req.body.firstName)
         .input('lastName', mssql.VarChar, req.body.lastName)
         .input('uAddress', mssql.VarChar, req.body.uAddress)
-        .input('userName', mssql.VarChar, req.body.userName)
+        .input('UserName', mssql.VarChar, req.body.UserName)
         .input('uPassword', mssql.VarChar, req.body.uPassword)
         .input('imageUrl', mssql.VarChar, req.body.imageUrl)
         .execute('AddUser');
@@ -364,3 +364,46 @@ const IsUserExist = async (req,res) => {
 
 module.exports.IsUserExist = IsUserExist;
 
+
+const CheckPassword = async (req,res) => {
+    try
+     {
+        console.log("at CheckPassword");
+        let pool = await mssql.connect(sqlConfig);
+        let reqRes = await pool.request()
+        .input('userName', mssql.VarChar, req.params.userName)
+        .input('password', mssql.VarChar, req.params.password)
+        .execute('CheckPassword');
+        res.send(reqRes.recordset);
+    } 
+    catch (err) 
+    {
+        console.log("there was an error while sending Query to DB: ", err);
+        res.send(err)
+    }
+
+}
+
+module.exports.CheckPassword = CheckPassword;
+
+
+
+const GetUserByUserName = async (req,res) => {
+    try
+     {
+        console.log("at GetUserByUserName");
+        let pool = await mssql.connect(sqlConfig);
+        let reqRes = await pool.request()
+        .input('userName', mssql.VarChar, req.params.userName)
+        .execute('GetUserByUserName');
+        res.send(reqRes.recordset);
+    } 
+    catch (err) 
+    {
+        console.log("there was an error while sending Query to DB: ", err);
+        res.send(err)
+    }
+
+}
+
+module.exports.GetUserByUserName = GetUserByUserName;

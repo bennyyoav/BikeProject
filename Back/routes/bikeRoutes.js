@@ -58,6 +58,10 @@ router.post("/AddVoteAndResponseBike/",bikesRepository.AddVoteAndResponseBike);
 
 router.get("/IsUserExist/:userName",bikesRepository.IsUserExist);
 
+router.get("/CheckPassword/:userName/:password",bikesRepository.CheckPassword);
+
+router.get("/GetUserByUserName/:userName/",bikesRepository.GetUserByUserName);
+
 router.post("/getUserImage/", uploadUserImages.single('file'), function (req, res) {
 
   console.log("at getUserImage")      
