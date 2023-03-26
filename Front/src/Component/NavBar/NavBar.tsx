@@ -10,24 +10,30 @@ export function updateUserData(
   userName: string
 ) {
   console.log("at updateUserData");
+  console.log("userName", userName);
   GetUserByUserName(userName).then((ans) => {
     if (ans !== undefined) setUser(ans as User); //set user after register
   });
 }
 
-export function NavBar(props: { userName: string }) {
+export function NavBar(props: {
+  userName: string;
+  setUserName: React.Dispatch<React.SetStateAction<string>>;
+  setUserPerformLogIn: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const [user, setUser] = useState<User>();
   console.log("at NavBar");
-  console.log(props.userName);
-
-  if (user === undefined) {
-    //after registration
-    updateUserData(setUser, props.userName);
-  } else if (
-    user?.UserName.toLocaleUpperCase() !== props.userName.toLocaleUpperCase()
-  ) {
-    //changing user (not sure if it could be )
-    updateUserData(setUser, props.userName);
+  if (props.userName !== "") {
+    if (user === undefined) {
+      console.log("userName=", props.userName);
+      //after registration
+      updateUserData(setUser, props.userName);
+    } else if (
+      user?.UserName.toLocaleUpperCase() !== props.userName.toLocaleUpperCase()
+    ) {
+      //changing user (not sure if it could be )
+      updateUserData(setUser, props.userName);
+    }
   }
 
   const navigate = useNavigate();
@@ -84,10 +90,22 @@ export function NavBar(props: { userName: string }) {
           </div>
           <div id="image Div">
             <img src={user.imageUrl} id="navUserImage" alt="userSmallPicture" />
+            <div
+              id="abort"
+              onClick={() => {
+                props.setUserName("");
+                setUser(undefined);
+                props.setUserPerformLogIn(false);
+              }}
+            >
+              abort
+            </div>
           </div>
         </div>
       ) : (
-        <div></div>
+        <div>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkBt1vjw-4CQg8foJBgPhuSbczomrq9o6_aZqowqY&s"></img>
+        </div>
       )}
     </div>
   );

@@ -31,7 +31,8 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 5px;
-    width: 70px;
+    width: 160px;
+   
     
 }
 .NavBar .navigates
@@ -60,4 +61,13 @@
 {
     padding: 5px;
     font-style: italic;
+}
+#abort
+{
+    font-style: italic;
+    color: red;
+}
+#abort:hover
+{
+    background-color: lightgreen;
 }

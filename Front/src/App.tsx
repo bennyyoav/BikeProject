@@ -14,7 +14,11 @@ function App() {
   let [userName, setUserName] = useState<string>("");
   return (
     <div className="App">
-      <NavBar userName={userName} />
+      <NavBar
+        userName={userName}
+        setUserName={setUserName}
+        setUserPerformLogIn={setUserPerformLogIn}
+      />
       <Routes>
         {userPerformLogIn === true && (
           <Route path="/" element={<GallerySelector />} />

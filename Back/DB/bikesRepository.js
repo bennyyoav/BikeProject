@@ -48,8 +48,8 @@ const addEntrance = async (req,res) => {
         console.log(req.body)
         let pool = await mssql.connect(sqlConfig);
         let reqRes = await pool.request()
-        .input('macAddress', mssql.VarChar, req.body.macAddress)
-        .input('userId', mssql.Int, req.body.userId)
+        .input('macAddress', mssql.VarChar, req.body.MacAddress)
+        .input('userId', mssql.Int, req.body.UserId)
         .execute('AddEntrance');
         res.send (reqRes.recordset);
         
