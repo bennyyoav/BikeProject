@@ -235,7 +235,7 @@ AS
 	SET NOCOUNT ON;
 	DECLARE @ans int;
 	SET @ans=0
-	if  (SELECT count( *) from Users where Users.UserName = @userName)>0
+	if  (SELECT count( *) from Users where LOWER(Users.UserName) = LOWER(@userName))>0
 	SET @ans=1
 	SELECT 'ans' = @ans;
 Go
