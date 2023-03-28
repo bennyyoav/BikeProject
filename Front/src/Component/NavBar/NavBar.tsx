@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { GetUserByUserName } from "../../GetAndUpdateDataFromFront/GetAndUpdateDataFromBack";
-import { User } from "../../GetAndUpdateDataFromFront/dbClasses";
+import {
+  GetUserByUserName,
+  UpdateEntranceLogOutTime,
+} from "../../GetAndUpdateDataFromFront/GetAndUpdateDataFromBack";
+import { Entrance, User } from "../../GetAndUpdateDataFromFront/dbClasses";
 import "./NavBar.css";
 import { useState } from "react";
 import { TfiCup } from "react-icons/tfi";
@@ -22,6 +25,7 @@ export function NavBar(props: {
   setUserPerformLogIn: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [user, setUser] = useState<User>();
+
   console.log("at NavBar");
   if (props.userName !== "") {
     if (user === undefined) {
@@ -40,7 +44,7 @@ export function NavBar(props: {
 
   return (
     //@ts-ignore
-    <div id="NavBarAdapter" user_id={user?.id}>
+    <div id="NavBarAdapter" user_id={user?.id} entrance_id="">
       <div className="NavBar">
         <img
           className="bikeIcon"
@@ -57,10 +61,10 @@ export function NavBar(props: {
           </div>
           <div
             onClick={() => {
-              navigate("/BikeCompetitions");
+              navigate("/MyActivity");
             }}
           >
-            Bike competitions
+            My Activity
           </div>
           <div
             onClick={() => {
@@ -96,6 +100,18 @@ export function NavBar(props: {
                 props.setUserName("");
                 setUser(undefined);
                 props.setUserPerformLogIn(false);
+                const entrance_id = (
+                  document.querySelector("#NavBarAdapter") as HTMLElement
+                ).getAttribute("entrance_id");
+                let entranceIdNum;
+                if (entrance_id) {
+                  entranceIdNum = +entrance_id;
+                }
+
+                console.log("entrance_id", entranceIdNum);
+                if (entranceIdNum) {
+                  UpdateEntranceLogOutTime(entranceIdNum);
+                }
               }}
             >
               abort

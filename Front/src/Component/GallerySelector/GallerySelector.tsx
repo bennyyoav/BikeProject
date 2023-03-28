@@ -13,8 +13,8 @@ import {
 } from "../../GetAndUpdateDataFromFront/GetAndUpdateDataFromBack";
 
 export function GallerySelector() {
-  let [bikeArry, setBikeArray] = useState<Bike[]>([]);
-  let [singleTrackArray, setSingleTreckArray] = useState<SingleTrack[]>([]);
+  let [bikeArray, setBikeArray] = useState<Bike[]>([]);
+  let [singleTrackArray, setSingleTrekArray] = useState<SingleTrack[]>([]);
   useEffect(() => {
     GetBikes().then((ans) => {
       console.log(JSON.stringify(ans));
@@ -23,7 +23,7 @@ export function GallerySelector() {
 
     GetTrails().then((ans) => {
       console.log(JSON.stringify(ans));
-      setSingleTreckArray(ans);
+      setSingleTrekArray(ans);
     });
   }, []);
 
@@ -72,12 +72,12 @@ export function GallerySelector() {
         {
           <Gallery
             galleryName={galleryTitle}
-            cards={bikeArry}
+            cards={bikeArray}
             setGalleryArr={setBikeArray}
           />
         }
         <AddPictureFormBike
-          galleryCards={bikeArry}
+          galleryCards={bikeArray}
           setGalleryCard={setBikeArray}
         />
       </div>
@@ -92,12 +92,12 @@ export function GallerySelector() {
           <Gallery
             galleryName={galleryTitle}
             cards={singleTrackArray}
-            setGalleryArr={setSingleTreckArray}
+            setGalleryArr={setSingleTrekArray}
           />
         }
         <AddPictureFormSingleTrack
           galleryCards={singleTrackArray}
-          setGalleryCard={setSingleTreckArray}
+          setGalleryCard={setSingleTrekArray}
         />
       </div>
     );

@@ -6,6 +6,7 @@ import {
   User,
   ReceivedVoteBike,
   AddVoteBike,
+  Activity,
 } from "./dbClasses";
 
 const BACK_SERVER = "localhost";
@@ -59,7 +60,7 @@ export const GetAllVotesForTrail = (
 //===============================================================================
 
 export const GetUserActivity = (userId: number) => {
-  postData(
+  return postData(
     `http://${BACK_SERVER}/users/activity/${userId}`,
     `GetUserActivity id ${userId}`,
     ResponseToGetUserActivity
@@ -84,6 +85,10 @@ export const addEntrance = (
 //======================================================================================
 
 export const UpdateEntranceLogOutTime = (EntranceID: Number) => {
+  console.log(
+    `http://${BACK_SERVER}/users/UpdateEntranceLogOutTime/${EntranceID}`
+  );
+
   return postData(
     `http://${BACK_SERVER}/users/UpdateEntranceLogOutTime/${EntranceID}`,
     "UpdateEntranceLogOutTime",
@@ -237,11 +242,12 @@ function ResponseToGetAllVotesForTrail(votes: ReceivedVoteBike[]) {
   });
 }
 
-function ResponseToGetUserActivity(ans: ReceivedVoteBike[]) {
+function ResponseToGetUserActivity(ans: Activity[]) {
   console.log(`Get User Activity`);
   ans.forEach((vote) => {
     console.log(`${JSON.stringify(vote)}`);
   });
+  return ans;
 }
 
 function ResponseToUpdateEntranceLogOutTime(ans: Entrance[]) {

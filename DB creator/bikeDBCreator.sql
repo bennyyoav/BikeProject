@@ -449,7 +449,7 @@ AS
 	WHERE id=@entranceId ;
 	SELECT * from  Entrance WHERE id=@entranceId ; 
 GO
-EXEC UpdateEntranceLogOutTime @entranceId =1;
+EXEC UpdateEntranceLogOutTime @entranceId =18;
 Go
 /*--------------------------------------------------------------------------*/
 
@@ -546,7 +546,7 @@ AS
 	(
 		fullNmae varchar(255),
 		activity varchar(255) ,
-		activity_time  date,
+		activity_time  DateTime,
 		orderNunber int
 	)
 	/*Insert Entrance Log In*/
@@ -609,11 +609,11 @@ AS
 	on Entrance.UserId = USERS.id
 	Where (@UserId = Users.id AND Entrance.LogOutTime is NOT NULL )
 	
-	SELECT fullNmae,activity,FORMAT(activity_time, 'dd-MM-yyyy') as time   FROM @tempTable order by activity_time, orderNunber
+	SELECT fullNmae,activity,FORMAT(activity_time, ' HH:M:SS  dd-MM-yyyy') as time   FROM @tempTable order by activity_time, orderNunber
 
 GO
- /*---EXEC GetAllActivityOfUser 3;
-GO--*/
+ EXEC GetAllActivityOfUser 3;
+GO
 
 /*--------------------------------------------------------------------------*/	
 DROP PROCEDURE IF EXISTS GetAllBikes
