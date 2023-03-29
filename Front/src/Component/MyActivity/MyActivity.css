@@ -1,0 +1,64 @@
+.activityRow>div
+{
+    display:flex;
+    border: rgb(11, 10, 10) solid 1px;
+    padding-left: 20px;
+    padding-right:20px ;
+    width:70%;
+    min-width: 500px;
+    max-width: 800px;
+    height: 45px;
+
+
+   align-items: center;
+}
+
+
+.bright
+{
+    background-color:rgba(228, 223, 223, 0.84) ;
+}
+
+.dark 
+{
+    background-color:rgba(228, 223, 223, 0.404) ;
+}
+.activityRow
+{
+    display:flex;
+    justify-content: center;
+
+}
+
+#activity
+{
+    background-image: url('https://img.freepik.com/premium-photo/green-leaf-with-copy-space-using-as-background-summer-nature-concept_103077-51.jpg?w=2000');
+    padding-left: auto;
+    padding-right: auto;
+    padding-bottom: 400px;
+    
+    min-height: 100%;
+  
+
+}
+#MyActivityHeader
+{
+    margin-top: 0;
+    padding-top: 10px;
+}
+ #SelectAndLabel
+{
+    display:flex;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
+} 
+#SelectAndLabel> label
+{
+    padding-right: 10px;
+    font-style: italic;
+    color: rgb(4, 51, 4);
+    font-size: larger;
+    
+}
