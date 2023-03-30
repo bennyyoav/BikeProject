@@ -609,10 +609,10 @@ AS
 	on Entrance.UserId = USERS.id
 	Where (@UserId = Users.id AND Entrance.LogOutTime is NOT NULL )
 	
-	SELECT fullNmae,activity,FORMAT(activity_time, ' HH:M:SS  dd-MM-yyyy') as time   FROM @tempTable order by activity_time, orderNunber
+	SELECT fullNmae,activity,FORMAT(activity_time, ' HH:M  dd-MM-yyyy') as time   FROM @tempTable order by activity_time, orderNunber
 
 GO
- EXEC GetAllActivityOfUser 3;
+ EXEC GetAllActivityOfUser 1;
 GO
 
 /*--------------------------------------------------------------------------*/	
@@ -683,19 +683,23 @@ GO
 EXEC AddVoteAndResponseBike 1,1,5,'I love this trail';
 GO
 /*--------------------------------------------------------------------------*/	
-DROP PROCEDURE IF EXISTS AddVoteAndResponseTrials
+DROP PROCEDURE IF EXISTS AddVoteAndResponseTrial
 GO
-CREATE PROCEDURE AddVoteAndResponseTrials 
+CREATE PROCEDURE AddVoteAndResponseTrial 
 		@entranceId  int,
-		@BikeId    int,
+		@TrailId    int,
 		@Vote        int, 
 		@Comment    varchar(255)
 AS	
 	SET NOCOUNT ON;
 		  INSERT INTO VotesAndResponsesTrails (entranceId,Trailid,Vote,Comment)
-		  VALUES (@entranceId, @BikeId ,@Vote, @Comment)
+		  VALUES (@entranceId, @TrailId ,@Vote, @Comment)
+
+		  DECLARE @ans int;
+		SET @ans = 1
+		SELECT 'ans' = @ans;
 GO
 
-EXEC AddVoteAndResponseTrials 1,1,5,'I love this trail';
+EXEC AddVoteAndResponseTrial 5,1,5,'I love this trail';
 GO
 /*--------------------------------------------------------------------------*/	

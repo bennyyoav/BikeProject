@@ -56,6 +56,8 @@ router.get("/GetNumberOfVoteTrail/:trailId",bikesRepository.GetNumberOfVoteTrail
 
 router.post("/AddVoteAndResponseBike/",bikesRepository.AddVoteAndResponseBike);
 
+router.post("/AddVoteAndResponseTrail/",bikesRepository.AddVoteAndResponseTrail);
+
 router.get("/IsUserExist/:userName",bikesRepository.IsUserExist);
 
 router.get("/CheckPassword/:userName/:password",bikesRepository.CheckPassword);
