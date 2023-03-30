@@ -7,6 +7,7 @@ import {
   ReceivedVoteBike,
   AddVoteBike,
   Activity,
+  AddVoteTrail,
 } from "./dbClasses";
 
 const BACK_SERVER = "localhost";
@@ -188,7 +189,7 @@ export const GetNumberOfVoteBike = (bikeId: number) => {
 
 export const GetNumberOfVoteTrail = (trailId: number) => {
   return postData(
-    `http://${BACK_SERVER}/users/GetNumberOfVoteBike/${trailId}`,
+    `http://${BACK_SERVER}/users/GetNumberOfVoteTrail/${trailId}`,
     `Get Number Of Vote Bike ${trailId}`,
     ResponseToGetNumberOfVoteTrail
   );
@@ -199,6 +200,18 @@ export const AddVoteAndResponseBike = (Vote: AddVoteBike) => {
   return postData(
     `http://${BACK_SERVER}/users/AddVoteAndResponseBike/`,
     `Add vote and response bike ${Vote.BikeId}`,
+    ResponseToAddVoteAndResponseBike,
+    "POST",
+    Vote
+  );
+};
+
+//=========================================================
+
+export const AddVoteAndResponseTrail = (Vote: AddVoteTrail) => {
+  return postData(
+    `http://${BACK_SERVER}/users/AddVoteAndResponseTrail/`,
+    `Add vote and response bike ${Vote.TrailId}`,
     ResponseToAddVoteAndResponseBike,
     "POST",
     Vote
@@ -320,6 +333,12 @@ function ResponseToGetBikes(bikeArry: Bike[]) {
 
 function ResponseToAddVoteAndResponseBike(ans: { ans: boolean }[]) {
   console.log(`add vote to bike  = ${ans[0].ans}`);
+  return ans[0].ans;
+}
+
+function ResponseToAddVoteAndResponseTrail(ans: { ans: boolean }[]) {
+  console.log(`add vote to bike  = ${ans[0].ans}`);
+  return ans[0].ans;
 }
 
 function ResponseToGetTrails(singleTrekArr: SingleTrack[]) {

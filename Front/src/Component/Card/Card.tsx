@@ -12,8 +12,10 @@ export function BikeCard(props: {
   cardArray: Bike[];
 }) {
   return (
-    <div className="Card">
+    //@ts-ignore
+    <div className="Card" id_bike={props.theBike?.id}>
       <img src={props.theBike.PathToPicture} alt="" />
+
       <div className="ImageHeader">
         <div className="header">{props.theBike.BikeName} </div>
         <div className="footer">
@@ -32,7 +34,7 @@ export function BikeCard(props: {
 }
 
 export function SingleCard(props: {
-  theSingel: SingleTrack;
+  theTrail: SingleTrack;
   setCarrArr: React.Dispatch<React.SetStateAction<SingleTrack[]>>;
   indexAtArr: number;
   cardArray: SingleTrack[];
@@ -40,19 +42,20 @@ export function SingleCard(props: {
   console.log("at SingleCard");
 
   return (
-    <div className="Card">
-      <img src={props.theSingel.PathToPicture} alt="" />
+    //@ts-ignore
+    <div className="Card" id_trail={props.theTrail?.id}>
+      <img src={props.theTrail.PathToPicture} alt="" />
       <div className="ImageHeader">
-        <div className="header">{props.theSingel.TrailName} </div>
-        <div className="footer">Level is {props.theSingel.TrailLevel} </div>
+        <div className="header">{props.theTrail.TrailName} </div>
+        <div className="footer">Level is {props.theTrail.TrailLevel} </div>
       </div>
       <Grading
-        theNum={props.theSingel.grade}
-        voteNumber={props.theSingel.voters}
+        theNum={props.theTrail.grade}
+        voteNumber={props.theTrail.voters}
       />
       <SingleGradingForm
         indexAtArr={props.indexAtArr}
-        theSingel={props.theSingel}
+        theTrail={props.theTrail}
         setCarrArr={props.setCarrArr}
         cardArray={props.cardArray}
       />

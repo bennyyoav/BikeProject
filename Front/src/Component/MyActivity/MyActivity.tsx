@@ -23,9 +23,6 @@ export function MyActivity(props: { userPerformLogIn: boolean }) {
     return <h1>Log in is required to see the contents of the page</h1>;
   }
 
-  const entrance_id = (
-    document.querySelector("#NavBarAdapter") as HTMLElement
-  ).getAttribute("entrance_id");
   const user_id = (
     document.querySelector("#NavBarAdapter") as HTMLElement
   ).getAttribute("user_id");

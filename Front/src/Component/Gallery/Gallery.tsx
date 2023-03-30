@@ -42,7 +42,7 @@ export function Gallery(props: {
         {props.cards.map((curr, i) => (
           <SingleCard
             key={i}
-            theSingel={curr as SingleTrack}
+            theTrail={curr as SingleTrack}
             setCarrArr={
               props.setGalleryArr as React.Dispatch<
                 React.SetStateAction<SingleTrack[]>

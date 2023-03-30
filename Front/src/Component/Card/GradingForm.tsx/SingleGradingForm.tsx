@@ -3,9 +3,14 @@ import { GiMountainCave } from "react-icons/gi";
 import "./GradingForm.css";
 import Collapsible from "react-collapsible";
 import { SingleTrack } from "../../../SingleTrack";
+import { AddVoteTrail } from "../../../GetAndUpdateDataFromFront/dbClasses";
+import {
+  AddVoteAndResponseTrail,
+  GetTrails,
+} from "../../../GetAndUpdateDataFromFront/GetAndUpdateDataFromBack";
 export function SingleGradingForm(props: {
   indexAtArr: number;
-  theSingel: SingleTrack;
+  theTrail: SingleTrack;
   setCarrArr: React.Dispatch<React.SetStateAction<SingleTrack[]>>;
   cardArray: SingleTrack[];
 }) {
@@ -42,27 +47,36 @@ export function SingleGradingForm(props: {
         <button
           className="VoteButton"
           onClick={() => {
-            //let tempArr=[...props.cardArray];
-            let tempArr = props.cardArray.slice();
+            let addVoteTrail = new AddVoteTrail();
+            addVoteTrail.entranceId = +(
+              document.querySelector("#NavBarAdapter") as HTMLElement
+            ).getAttribute("entrance_id")!;
+            addVoteTrail.TrailId = props.theTrail.id!;
+            addVoteTrail.Vote = +(
+              document
+                .querySelectorAll(`[id_trail="${props.theTrail.id}"]`)[0]
+                .querySelector(".vote")
+                ?.querySelector("select") as HTMLSelectElement
+            ).value;
 
-            let bikeWithNewGrade = props.theSingel;
+            addVoteTrail.Comment = (
+              document
+                .querySelectorAll(`[id_trail="${props.theTrail.id}"]`)[0]
+                .querySelector(".vote")
+                ?.querySelector("input") as HTMLInputElement
+            ).value;
 
-            //calc aver grade
-            let votersNum = Number(bikeWithNewGrade.voters);
-            let oldVoteAverageNumber = bikeWithNewGrade.grade;
-            let newVote = Number(
-              (
-                document.querySelector(
-                  `.BikeGrade${props.indexAtArr}`
-                ) as HTMLInputElement
-              ).value
-            );
-            //Average CALC
-            bikeWithNewGrade.grade =
-              (oldVoteAverageNumber * votersNum + newVote) / (votersNum + 1);
-            bikeWithNewGrade.voters += 1;
-            tempArr.splice(props.indexAtArr, 1, bikeWithNewGrade);
-            props.setCarrArr([...tempArr]);
+            console.log(addVoteTrail);
+
+            AddVoteAndResponseTrail(addVoteTrail).then((response) => {
+              if (response) {
+                //vote ik ok
+                GetTrails().then((ans) => {
+                  console.log(JSON.stringify(ans));
+                  props.setCarrArr(ans);
+                });
+              }
+            });
           }}
         >
           {/* icon of vote */}

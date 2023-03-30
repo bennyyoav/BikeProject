@@ -53,6 +53,13 @@ export class AddVoteBike {
   Vote: Number = 0;
   Comment: string = "";
 }
+export class AddVoteTrail {
+  entranceId: Number = 0;
+  TrailId: Number = 0;
+  Vote: Number = 0;
+  Comment: string = "";
+}
+
 export interface Activity {
   fullName: String;
   activity: String;
