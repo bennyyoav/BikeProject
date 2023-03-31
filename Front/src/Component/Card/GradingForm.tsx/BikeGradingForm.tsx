@@ -4,11 +4,11 @@ import { Bike } from "../../../Bike";
 import "./GradingForm.css";
 import Collapsible from "react-collapsible";
 import {
+  AddScoreToUserByUserID,
   AddVoteAndResponseBike,
   GetBikes,
 } from "../../../GetAndUpdateDataFromFront/GetAndUpdateDataFromBack";
 import { AddVoteBike } from "../../../GetAndUpdateDataFromFront/dbClasses";
-import { SelectHTMLAttributes } from "react";
 export function BikeGradingForm(props: {
   indexAtArr: number;
   theBike: Bike;
@@ -78,9 +78,22 @@ export function BikeGradingForm(props: {
             AddVoteAndResponseBike(addVoteBike).then((response) => {
               if (response) {
                 //vote ik ok
-                GetBikes().then((ans) => {
-                  console.log(JSON.stringify(ans));
-                  props.setCarrArr(ans);
+                const userId = (
+                  document.querySelector("#NavBarAdapter") as HTMLElement
+                ).getAttribute("user_id");
+                AddScoreToUserByUserID(userId!, 10).then(() => {
+                  GetBikes().then((ans) => {
+                    console.log(JSON.stringify(ans));
+                    props.setCarrArr(ans);
+                    let scoreStr = (
+                      document.querySelector("#yourScoreIs") as HTMLDivElement
+                    ).innerHTML;
+                    let scoreNum = +scoreStr.split(": ")[1];
+                    scoreNum += 10;
+                    (
+                      document.querySelector("#yourScoreIs") as HTMLDivElement
+                    ).innerHTML = `your score is: ${scoreNum}`;
+                  });
                 });
               }
             });

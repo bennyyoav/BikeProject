@@ -219,7 +219,15 @@ export const AddVoteAndResponseTrail = (Vote: AddVoteTrail) => {
 };
 
 //=========================================================
+export const AddScoreToUserByUserID = (userId: string, score: Number) => {
+  return postData(
+    `http://${BACK_SERVER}/users/AddScoreToUserByUserID/${userId}/${score}`,
+    `AddScoreToUserByUserID ${userId}`,
+    ResponseToAddScoreToUserByUserID
+  );
+};
 
+//=========================================================
 export const GetUserByUserName = (userName: string) => {
   return postData(
     `http://${BACK_SERVER}/users/GetUserByUserName/${userName}`,
@@ -228,7 +236,7 @@ export const GetUserByUserName = (userName: string) => {
   );
 };
 
-//=========================================================
+//==============================================================
 export const AddScoreToUser = (userName: string, score: Number) => {
   return postData(
     `http://${BACK_SERVER}/users/AddScoreToUser/${userName}/${score}`,
@@ -337,7 +345,7 @@ function ResponseToAddVoteAndResponseBike(ans: { ans: boolean }[]) {
 }
 
 function ResponseToAddVoteAndResponseTrail(ans: { ans: boolean }[]) {
-  console.log(`add vote to bike  = ${ans[0].ans}`);
+  console.log(`add vote to trail  = ${ans[0].ans}`);
   return ans[0].ans;
 }
 
@@ -394,6 +402,12 @@ function ResponseToCheckPassword(ans: { ans: boolean }[]) {
 
 function ResponseToGetUserByUserName(ans: User[]) {
   console.log(`GetUserByUserName ans  = ${JSON.stringify(ans[0])}`);
+
+  return ans[0];
+}
+
+function ResponseToAddScoreToUserByUserID(ans: User[]) {
+  console.log(`AddScoreToUserByUserID ans  = ${JSON.stringify(ans[0])}`);
 
   return ans[0];
 }

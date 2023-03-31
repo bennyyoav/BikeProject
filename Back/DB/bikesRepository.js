@@ -433,6 +433,27 @@ const AddScoreToUser = async (req,res) => {
 
 module.exports.AddScoreToUser = AddScoreToUser;
 
+
+const AddScoreToUserByUserID = async (req,res) => {
+    try
+     {
+        console.log("at AddScoreToUserByUserID");
+        let pool = await mssql.connect(sqlConfig);
+        let reqRes = await pool.request()
+        .input('userId', mssql.Int, req.params.userId)
+        .input('score', mssql.VarChar, req.params.score)
+        .execute('AddScoreToUserByUserID');
+        res.send(reqRes.recordset);
+    } 
+    catch (err) 
+    {
+        console.log("there was an error while sending Query to DB: ", err);
+        res.send(err)
+    }
+
+}
+module.exports.AddScoreToUserByUserID = AddScoreToUserByUserID;
+
 const AddVoteAndResponseTrail = async (req,res) => {
     try
      {

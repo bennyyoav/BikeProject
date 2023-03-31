@@ -10,8 +10,8 @@ import {} from "./GetAndUpdateDataFromFront/GetAndUpdateDataFromBack";
 import { LogIN } from "./Component/LogIn/LogIn";
 
 function App() {
-  let [userPerformLogIn, setUserPerformLogIn] = useState<boolean>(false);
-  let [userName, setUserName] = useState<string>("");
+  var [userPerformLogIn, setUserPerformLogIn] = useState<boolean>(false);
+  var [userName, setUserName] = useState<string>("");
   return (
     <div className="App">
       <NavBar

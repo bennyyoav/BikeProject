@@ -435,6 +435,23 @@ GO
 EXEC AddScoreToUser "Benny",20  ;
 Go
 
+/*--------------------------------------------------------------------------*/
+
+DROP PROCEDURE IF EXISTS dbo.AddScoreToUserByUserID;  
+GO 
+CREATE PROCEDURE AddScoreToUserByUserID
+	@userId int,
+	@score int
+AS
+	UPDATE dbo.Users
+	SET score +=@score 
+
+	WHERE User.USER_ID = @userId;
+	DECLARE @ans int =1;
+	SELECT 'ans' = @ans;/*return always true*/
+GO
+EXEC AddScoreToUserByUserID 1 ,20  ;
+Go
 
 /*--------------------------------------------------------------------------*/
 

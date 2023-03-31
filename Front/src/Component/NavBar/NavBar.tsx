@@ -87,7 +87,7 @@ export function NavBar(props: {
         <div className="userData">
           <div id="helloAndScore">
             <div>hello {user.UserName}</div>
-            <div>your score is: {user.score as number}</div>
+            <div id="yourScoreIs">your score is: {user.score as number}</div>
             <div id="cupIcon">
               <TfiCup />
             </div>

@@ -28,9 +28,9 @@ export function MyActivity(props: { userPerformLogIn: boolean }) {
   ).getAttribute("user_id");
 
   function filterFunc() {
-    let selectfilter = (document.querySelector("#filter") as HTMLInputElement)
+    let selectFilter = (document.querySelector("#filter") as HTMLInputElement)
       .value;
-    switch (selectfilter) {
+    switch (selectFilter) {
       case "All":
         setFilter(0);
         console.log(filter);
