@@ -8,6 +8,7 @@ import { MyActivity } from "./Component/MyActivity/MyActivity";
 import { SiteRegistration } from "./Component/SiteRegistration/SiteRegistration";
 import {} from "./GetAndUpdateDataFromFront/GetAndUpdateDataFromBack";
 import { LogIN } from "./Component/LogIn/LogIn";
+import CommentFullPage from "./Component/CommentFullPage/CommentFullPage";
 
 function App() {
   var [userPerformLogIn, setUserPerformLogIn] = useState<boolean>(false);
@@ -44,6 +45,12 @@ function App() {
           element={<MyActivity userPerformLogIn={userPerformLogIn} />}
         />
         <Route path="/siteRegistration" element={<SiteRegistration />} />
+
+        <Route
+          path="/CommentFullPage"
+          element={<MyActivity userPerformLogIn={userPerformLogIn} />}
+        />
+        <Route path="/CommentFullPage/:id" element={<CommentFullPage />} />
       </Routes>
     </div>
   );

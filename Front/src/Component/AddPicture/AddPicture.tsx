@@ -124,6 +124,7 @@ export function AddPictureFormBike(props: {
               BikeManufacturer: `${manufacturerInput.value}`,
               grade: grade,
               voters: 1,
+              EntranceId: 1,
             },
           ];
           props.setGalleryCard(newBike);
@@ -207,6 +208,7 @@ export function AddPictureFormSingleTrack(props: {
               }`,
               grade: grade,
               voters: 1,
+              EntranceId: 1,
             },
           ];
           console.log(newSingleTrack);

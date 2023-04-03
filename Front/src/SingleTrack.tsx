@@ -5,4 +5,5 @@ export interface SingleTrack {
   TrailLevel: string;
   grade: number;
   voters: number;
+  EntranceId: number;
 }

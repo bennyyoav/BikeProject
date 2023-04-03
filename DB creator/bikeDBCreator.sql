@@ -91,7 +91,7 @@ CREATE TABLE BikesPictures
 CREATE TABLE  TrailsPictures
  (
     id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    entranceId int FOREIGN KEY REFERENCES dbo.Users(id),
+    EntranceId int FOREIGN KEY REFERENCES dbo.Users(id),
     TrailName    varchar(255) NOT NULL,
     TrailLevel     varchar(255)NOT NULL,
 	PathToPicture  varchar(255) NOT NULL
@@ -355,9 +355,6 @@ GO
 
 
 
-
-
-
 /*--------------------------------------------------------------------------*/
 
 DROP PROCEDURE IF EXISTS dbo.GetAllVotesForTrail;  
@@ -446,7 +443,7 @@ AS
 	UPDATE dbo.Users
 	SET score +=@score 
 
-	WHERE User.USER_ID = @userId;
+	WHERE id = @userId;
 	DECLARE @ans int =1;
 	SELECT 'ans' = @ans;/*return always true*/
 GO
@@ -653,7 +650,8 @@ SET NOCOUNT ON;
 	SELECT BikesPictures.id, 
 	BikesPictures.BikeName /*as name,*/,
 	BikesPictures.PathToPicture /*as Picture*/,
-	BikesPictures.BikeManufacturer /*as manufacturer*/
+	BikesPictures.BikeManufacturer /*as manufacturer*/,
+	BikesPictures.EntranceId
 	
 	FROM BikesPictures  INNER JOIN Entrance
 	on BikesPictures.EntranceId = Entrance.id
@@ -662,6 +660,101 @@ GO
 EXEC GetAllBikes 
 GO
 /*--------------------------------------------------------------------------*/	
+
+
+DROP PROCEDURE IF EXISTS GetBikeByID
+GO
+CREATE PROCEDURE GetBikeByID 
+@reqBikeId int
+AS
+	SET NOCOUNT ON;
+
+
+	
+	SELECT BikesPictures.id, 
+	BikesPictures.BikeName /*as name,*/,
+	BikesPictures.PathToPicture /*as Picture*/,
+	BikesPictures.BikeManufacturer /*as manufacturer*/,
+	BikesPictures.EntranceId
+	
+	
+	FROM BikesPictures
+	where @reqBikeId=BikesPictures.id
+GO
+EXEC GetBikeByID 2
+GO
+
+
+/*--------------------------------------------------------------------------*/	
+
+
+
+DROP PROCEDURE IF EXISTS GetTrailByID
+GO
+CREATE PROCEDURE GetTrailByID 
+@reqTrailId int
+AS
+	SET NOCOUNT ON;
+
+
+	
+	SELECT TrailsPictures.id, 
+	TrailsPictures.TrailName /*as name,*/,
+	TrailsPictures.PathToPicture /*as Picture*/,
+	TrailsPictures.TrailLevel /*as manufacturer*/,
+	TrailsPictures.EntranceId
+	
+	FROM TrailsPictures
+	where @reqTrailId=TrailsPictures.id
+GO
+EXEC GetTrailByID 2
+GO
+
+
+/*--------------------------------------------------------------------------*/	
+
+
+
+
+
+DROP PROCEDURE IF EXISTS GetUserByEntranceId
+GO
+CREATE PROCEDURE GetUserByEntranceId 
+@entranceId int
+AS
+	SET NOCOUNT ON;
+
+
+	
+	SELECT Users.UserName,
+	Users.imageUrl,
+	Users.score
+	
+	FROM Users 	 RIGHT JOIN Entrance
+	on Users.id= Entrance.UserId
+	where @entranceId=Users.id
+	GROUP BY  Users.UserName,Users.imageUrl,Users.score
+
+GO
+EXEC GetUserByEntranceId 5
+GO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 DROP PROCEDURE IF EXISTS GetAllTrials
 GO
 CREATE PROCEDURE GetAllTrials 
@@ -670,7 +763,8 @@ SET NOCOUNT ON;
 	SELECT TrailsPictures.id,
 	TrailsPictures.TrailName ,
 	TrailsPictures.PathToPicture,
-	TrailsPictures.TrailLevel
+	TrailsPictures.TrailLevel,
+	TrailsPictures.entranceId
 
 	FROM   TrailsPictures INNER JOIN Entrance
 	on TrailsPictures.entranceId = Entrance.id

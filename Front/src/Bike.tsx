@@ -5,4 +5,5 @@ export interface Bike {
   BikeManufacturer: string;
   grade: number;
   voters: number;
+  EntranceId: number;
 }

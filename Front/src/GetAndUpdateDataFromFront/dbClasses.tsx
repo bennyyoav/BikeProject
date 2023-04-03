@@ -48,15 +48,15 @@ export interface ReceivedVoteBike {
 }
 
 export class AddVoteBike {
-  entranceId: Number = 0;
-  BikeId: Number = 0;
-  Vote: Number = 0;
+  entranceId: number = 0;
+  BikeId: number = 0;
+  Vote: number = 0;
   Comment: string = "";
 }
 export class AddVoteTrail {
-  entranceId: Number = 0;
-  TrailId: Number = 0;
-  Vote: Number = 0;
+  entranceId: number = 0;
+  TrailId: number = 0;
+  Vote: number = 0;
   Comment: string = "";
 }
 

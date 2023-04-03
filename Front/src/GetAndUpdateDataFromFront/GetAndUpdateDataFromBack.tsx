@@ -48,17 +48,26 @@ const postData = (
 };
 //===============================================================================
 
-export const GetAllVotesForTrail = (
-  trailId: number,
-  func = ResponseToGetAllVotesForTrail
-) => {
-  postData(
+export const GetAllVotesForTrail = (trailId: number) => {
+  return postData(
     `http://${BACK_SERVER}/users/GetAllVotesForTrail/${trailId}`,
     `GetAllVotesForTrail id ${trailId}`,
     ResponseToGetAllVotesForTrail
   );
 };
+
 //===============================================================================
+export const GetAllVotesForBike = (trailId: number) => {
+  return postData(
+    `http://${BACK_SERVER}/users/GetAllVotesForBike/${trailId}`,
+    `GetAllVotesForTrail id ${trailId}`,
+    ResponseToGetAllVotesForBike
+  );
+};
+
+//==
+
+//==================================================================
 
 export const GetUserActivity = (userId: number) => {
   return postData(
@@ -212,7 +221,7 @@ export const AddVoteAndResponseTrail = (Vote: AddVoteTrail) => {
   return postData(
     `http://${BACK_SERVER}/users/AddVoteAndResponseTrail/`,
     `Add vote and response bike ${Vote.TrailId}`,
-    ResponseToAddVoteAndResponseBike,
+    ResponseToAddVoteAndResponseTrail,
     "POST",
     Vote
   );
@@ -247,6 +256,32 @@ export const AddScoreToUser = (userName: string, score: Number) => {
 
 //=========================================================
 
+export const GetBikeByID = (bikeId: number) => {
+  return postData(
+    `http://${BACK_SERVER}/users/GetBikeByID/${bikeId}/`,
+    `GetBikeByID ${bikeId}`,
+    (ans) => {
+      console.log(`Bike data`);
+      console.log(`${JSON.stringify(ans)}`);
+      return ans[0];
+    }
+  );
+};
+
+//=========================================================
+
+export const GetUserByEntranceId = (entranceId: number) => {
+  return postData(
+    `http://${BACK_SERVER}/users/GetUserByEntranceId/${entranceId}/`,
+    `GetBikeByID ${entranceId}`,
+    (ans) => {
+      console.log(`user data`);
+      console.log(`${JSON.stringify(ans)}`);
+      return ans[0];
+    }
+  );
+};
+
 function ResponseToAddEntrance(ans: { EntranceID: string }[]) {
   //ans has field  of  EntranceID
   console.log(`new Entrance ID =  ${ans[0].EntranceID}`);
@@ -261,6 +296,18 @@ function ResponseToGetAllVotesForTrail(votes: ReceivedVoteBike[]) {
       ` ${vote.Vote} ${vote.LogInTime} ${vote.FullName} ${vote.Comment}`
     );
   });
+  return votes;
+}
+
+function ResponseToGetAllVotesForBike(votes: ReceivedVoteBike[]) {
+  console.log(`All Votes For Trail`);
+  votes.forEach((vote) => {
+    console.log(`${JSON.stringify(vote)}`);
+    console.log(
+      ` ${vote.Vote} ${vote.LogInTime} ${vote.FullName} ${vote.Comment}`
+    );
+  });
+  return votes;
 }
 
 function ResponseToGetUserActivity(ans: Activity[]) {
@@ -330,6 +377,8 @@ function ResponseToGetBikes(bikeArry: Bike[]) {
         elem.grade = bikeGrade;
         return GetNumberOfVoteBike(elem.id!).then((voters) => {
           elem.voters = voters;
+          console.log("elem.EntranceId", elem.EntranceId);
+          console.log(JSON.stringify(elem));
           return elem;
         });
       })

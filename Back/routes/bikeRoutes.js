@@ -68,6 +68,13 @@ router.get("/AddScoreToUser/:userName/:score",bikesRepository.AddScoreToUser);
 
 router.get("/AddScoreToUserByUserID/:userId/:score",bikesRepository.AddScoreToUserByUserID);
 
+router.get("/GetBikeByID/:bikeId",bikesRepository.GetBikeByID);
+
+router.get("/GetTrailByID/:trailId",bikesRepository.GetTrailByID);
+
+
+router.get("/GetUserByEntranceId/:entranceId",bikesRepository.GetUserByEntranceId);
+
 router.post("/getUserImage/", uploadUserImages.single('file'), function (req, res) {
 
   console.log("at getUserImage")      

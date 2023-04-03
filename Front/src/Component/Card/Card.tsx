@@ -4,6 +4,7 @@ import "./Card.css";
 import { Grading } from "../Grading/Grading";
 import { BikeGradingForm } from "./GradingForm.tsx/BikeGradingForm";
 import { SingleGradingForm } from "./GradingForm.tsx/SingleGradingForm";
+import { Link } from "react-router-dom";
 
 export function BikeCard(props: {
   theBike: Bike;
@@ -14,7 +15,9 @@ export function BikeCard(props: {
   return (
     //@ts-ignore
     <div className="Card" id_bike={props.theBike?.id}>
-      <img src={props.theBike.PathToPicture} alt="" />
+      <Link to={`/CommentFullPage/${props.theBike.id}`}>
+        <img src={props.theBike.PathToPicture} alt="" />
+      </Link>
 
       <div className="ImageHeader">
         <div className="header">{props.theBike.BikeName} </div>
@@ -44,7 +47,9 @@ export function SingleCard(props: {
   return (
     //@ts-ignore
     <div className="Card" id_trail={props.theTrail?.id}>
-      <img src={props.theTrail.PathToPicture} alt="" />
+      <Link to={`/CommentFullPage/${props.theTrail.id}`}>
+        <img src={props.theTrail.PathToPicture} alt="" />
+      </Link>
       <div className="ImageHeader">
         <div className="header">{props.theTrail.TrailName} </div>
         <div className="footer">Level is {props.theTrail.TrailLevel} </div>

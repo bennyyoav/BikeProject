@@ -8,6 +8,7 @@ import {
   AddVoteAndResponseTrail,
   GetTrails,
 } from "../../../GetAndUpdateDataFromFront/GetAndUpdateDataFromBack";
+import { UpdateNavBarScore } from "./BikeGradingForm";
 export function SingleGradingForm(props: {
   indexAtArr: number;
   theTrail: SingleTrack;
@@ -74,6 +75,7 @@ export function SingleGradingForm(props: {
                 GetTrails().then((ans) => {
                   console.log(JSON.stringify(ans));
                   props.setCarrArr(ans);
+                  UpdateNavBarScore(10);
                 });
               }
             });

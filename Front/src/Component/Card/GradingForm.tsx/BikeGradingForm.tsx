@@ -85,14 +85,7 @@ export function BikeGradingForm(props: {
                   GetBikes().then((ans) => {
                     console.log(JSON.stringify(ans));
                     props.setCarrArr(ans);
-                    let scoreStr = (
-                      document.querySelector("#yourScoreIs") as HTMLDivElement
-                    ).innerHTML;
-                    let scoreNum = +scoreStr.split(": ")[1];
-                    scoreNum += 10;
-                    (
-                      document.querySelector("#yourScoreIs") as HTMLDivElement
-                    ).innerHTML = `your score is: ${scoreNum}`;
+                    UpdateNavBarScore(10);
                   });
                 });
               }
@@ -139,4 +132,13 @@ export function BikeGradingForm(props: {
       </Collapsible>
     </div>
   );
+}
+export function UpdateNavBarScore(score: number) {
+  let scoreStr = (document.querySelector("#yourScoreIs") as HTMLDivElement)
+    .innerHTML;
+  let scoreNum = +scoreStr.split(": ")[1];
+  scoreNum += score;
+  (
+    document.querySelector("#yourScoreIs") as HTMLDivElement
+  ).innerHTML = `your score is: ${scoreNum}`;
 }
