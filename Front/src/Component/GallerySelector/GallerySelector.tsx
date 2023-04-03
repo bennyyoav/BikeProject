@@ -6,7 +6,7 @@ import {
 import { Gallery } from "../Gallery/Gallery";
 import "./GallerySelector.css";
 import { Bike } from "../../Bike";
-import { SingleTrack } from "../../SingleTrack";
+import { Trail } from "../../SingleTrack";
 import {
   GetBikes,
   GetTrails,
@@ -14,7 +14,7 @@ import {
 
 export function GallerySelector() {
   let [bikeArray, setBikeArray] = useState<Bike[]>([]);
-  let [singleTrackArray, setSingleTrekArray] = useState<SingleTrack[]>([]);
+  let [singleTrackArray, setSingleTrekArray] = useState<Trail[]>([]);
   useEffect(() => {
     GetBikes().then((ans) => {
       console.log(JSON.stringify(ans));

@@ -1,5 +1,5 @@
 import { Bike } from "../../Bike";
-import { SingleTrack } from "../../SingleTrack";
+import { Trail } from "../../SingleTrack";
 import "./Card.css";
 import { Grading } from "../Grading/Grading";
 import { BikeGradingForm } from "./GradingForm.tsx/BikeGradingForm";
@@ -37,17 +37,17 @@ export function BikeCard(props: {
 }
 
 export function SingleCard(props: {
-  theTrail: SingleTrack;
-  setCarrArr: React.Dispatch<React.SetStateAction<SingleTrack[]>>;
+  theTrail: Trail;
+  setCarrArr: React.Dispatch<React.SetStateAction<Trail[]>>;
   indexAtArr: number;
-  cardArray: SingleTrack[];
+  cardArray: Trail[];
 }) {
   console.log("at SingleCard");
 
   return (
     //@ts-ignore
     <div className="Card" id_trail={props.theTrail?.id}>
-      <Link to={`/CommentFullPage/${props.theTrail.id}`}>
+      <Link to={`/CommentFullPageTrail/${props.theTrail.id}`}>
         <img src={props.theTrail.PathToPicture} alt="" />
       </Link>
       <div className="ImageHeader">

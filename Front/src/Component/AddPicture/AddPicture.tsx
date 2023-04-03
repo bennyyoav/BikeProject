@@ -2,7 +2,7 @@ import { FocusEventHandler, useState } from "react";
 import "./AddPicture.css";
 import React from "react";
 import { Bike } from "../../Bike";
-import { SingleTrack } from "../../SingleTrack";
+import { Trail } from "../../SingleTrack";
 
 function EnableDisableSubmit(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>
@@ -136,8 +136,8 @@ export function AddPictureFormBike(props: {
 }
 
 export function AddPictureFormSingleTrack(props: {
-  galleryCards: SingleTrack[];
-  setGalleryCard: React.Dispatch<React.SetStateAction<SingleTrack[]>>;
+  galleryCards: Trail[];
+  setGalleryCard: React.Dispatch<React.SetStateAction<Trail[]>>;
 }) {
   const [disable, setDisable] = useState(true);
   return (

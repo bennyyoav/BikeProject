@@ -1,5 +1,5 @@
 import { Bike } from "../Bike";
-import { SingleTrack } from "../SingleTrack";
+import { Trail } from "../SingleTrack";
 import {
   Entrance,
   sqlToJsDate,
@@ -270,6 +270,19 @@ export const GetBikeByID = (bikeId: number) => {
 
 //=========================================================
 
+export const GetTrailByID = (tailId: number) => {
+  return postData(
+    `http://${BACK_SERVER}/users/GetTrailByID/${tailId}/`,
+    `GetBikeByID ${tailId}`,
+    (ans) => {
+      console.log(`tailId data`);
+      console.log(`${JSON.stringify(ans)}`);
+      return ans[0];
+    }
+  );
+};
+
+//=============================================
 export const GetUserByEntranceId = (entranceId: number) => {
   return postData(
     `http://${BACK_SERVER}/users/GetUserByEntranceId/${entranceId}/`,
@@ -398,8 +411,8 @@ function ResponseToAddVoteAndResponseTrail(ans: { ans: boolean }[]) {
   return ans[0].ans;
 }
 
-function ResponseToGetTrails(singleTrekArr: SingleTrack[]) {
-  var promises: Promise<SingleTrack>[] = [];
+function ResponseToGetTrails(singleTrekArr: Trail[]) {
+  var promises: Promise<Trail>[] = [];
 
   console.log("at ResponseToGet Trail");
 

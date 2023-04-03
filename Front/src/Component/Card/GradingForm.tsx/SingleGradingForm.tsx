@@ -2,7 +2,7 @@ import { FaVoteYea } from "react-icons/fa";
 import { GiMountainCave } from "react-icons/gi";
 import "./GradingForm.css";
 import Collapsible from "react-collapsible";
-import { SingleTrack } from "../../../SingleTrack";
+import { Trail } from "../../../SingleTrack";
 import { AddVoteTrail } from "../../../GetAndUpdateDataFromFront/dbClasses";
 import {
   AddVoteAndResponseTrail,
@@ -11,9 +11,9 @@ import {
 import { UpdateNavBarScore } from "./BikeGradingForm";
 export function SingleGradingForm(props: {
   indexAtArr: number;
-  theTrail: SingleTrack;
-  setCarrArr: React.Dispatch<React.SetStateAction<SingleTrack[]>>;
-  cardArray: SingleTrack[];
+  theTrail: Trail;
+  setCarrArr: React.Dispatch<React.SetStateAction<Trail[]>>;
+  cardArray: Trail[];
 }) {
   return (
     <div className="vote">

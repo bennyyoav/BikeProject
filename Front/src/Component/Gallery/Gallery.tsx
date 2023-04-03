@@ -2,13 +2,13 @@ import "./Gallery.css";
 
 import { BikeCard, SingleCard } from "../Card/Card";
 import { Bike } from "../../Bike";
-import { SingleTrack } from "../../SingleTrack";
+import { Trail } from "../../SingleTrack";
 
 export function Gallery(props: {
   galleryName: string;
-  cards: (Bike | SingleTrack)[];
+  cards: (Bike | Trail)[];
   setGalleryArr:
-    | React.Dispatch<React.SetStateAction<SingleTrack[]>>
+    | React.Dispatch<React.SetStateAction<Trail[]>>
     | React.Dispatch<React.SetStateAction<Bike[]>>;
 }) {
   if (
@@ -42,14 +42,14 @@ export function Gallery(props: {
         {props.cards.map((curr, i) => (
           <SingleCard
             key={i}
-            theTrail={curr as SingleTrack}
+            theTrail={curr as Trail}
             setCarrArr={
               props.setGalleryArr as React.Dispatch<
-                React.SetStateAction<SingleTrack[]>
+                React.SetStateAction<Trail[]>
               >
             }
             indexAtArr={i}
-            cardArray={props.cards as SingleTrack[]}
+            cardArray={props.cards as Trail[]}
           />
         ))}
       </div>

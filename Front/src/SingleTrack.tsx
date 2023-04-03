@@ -1,4 +1,4 @@
-export interface SingleTrack {
+export interface Trail {
   id?: number;
   TrailName: string;
   PathToPicture: string;
