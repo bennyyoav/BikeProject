@@ -257,12 +257,12 @@ AS
 	SET NOCOUNT ON;
 	DECLARE @ans int=0;
 	if  (select count( *) from Users where Users.UserName = @userName and
-		Users.Upassword=@password)>0
+		CAST(Users.Upassword AS varbinary(200)) =CAST(@password AS varbinary(200)) )>0
 		set @ans=1
 
 	SELECT 'ans' = @ans;
 Go
-/*EXEC CheckPassword "Jhone", 12345*/
+EXEC CheckPassword "benny", 1234
 /*---------------------------------------------------------------------------*/
 DROP PROCEDURE IF EXISTS dbo.GetUserByUserName 
 GO  

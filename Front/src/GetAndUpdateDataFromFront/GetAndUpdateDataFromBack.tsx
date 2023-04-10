@@ -360,10 +360,12 @@ function ResponseToGetAverageGradingBike(ans: { bikeAverageGrade: string }[]) {
 }
 function ResponseToGetHasUserVoteToTRail(ans: { ans: boolean }[]) {
   console.log(`UserVoteToTRail =${ans[0].ans}`);
+  return ans[0].ans;
 }
 
 function ResponseToHasUserVoteToBIke(ans: { ans: boolean }[]) {
-  console.log(`UserVoteToTRail =${ans[0].ans}`);
+  console.log(`UserVoteToBike =${ans[0].ans}`);
+  return ans[0].ans;
 }
 
 function ResponseToAddUser(ans: { userID: Number }[]) {

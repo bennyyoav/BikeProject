@@ -38,7 +38,7 @@ function CleanForm(setDisable: React.Dispatch<React.SetStateAction<boolean>>) {
   setDisable(true);
 }
 
-function addInputwithLabel(
+function addInputWithLabel(
   labelName: string,
   placeholder: string,
   id: string,
@@ -71,13 +71,13 @@ export function AddPictureFormBike(props: {
         <u>Add Picture</u>{" "}
       </h4>
 
-      {addInputwithLabel("Bike Url", "Add bike picture Url", "BikeUrl", () => {
+      {addInputWithLabel("Bike Url", "Add bike picture Url", "BikeUrl", () => {
         EnableDisableSubmit(setDisable);
       })}
-      {addInputwithLabel("Bike Name", "Add Bike  Name", "BikeName", () => {
+      {addInputWithLabel("Bike Name", "Add Bike  Name", "BikeName", () => {
         EnableDisableSubmit(setDisable);
       })}
-      {addInputwithLabel(
+      {addInputWithLabel(
         "Bike Manufacturer",
         "Add Bike  Manufacturer",
         "BikeManufacturer",
@@ -146,7 +146,7 @@ export function AddPictureFormSingleTrack(props: {
         <u>Add Picture</u>{" "}
       </h4>
 
-      {addInputwithLabel(
+      {addInputWithLabel(
         "Singel Track Url",
         "Add Single picture Url",
         "SingelTrackUrl",
@@ -154,7 +154,7 @@ export function AddPictureFormSingleTrack(props: {
           EnableDisableSubmit(setDisable);
         }
       )}
-      {addInputwithLabel(
+      {addInputWithLabel(
         "Single Track Name",
         "Single Track Name",
         "SingleTrackName",
@@ -162,7 +162,7 @@ export function AddPictureFormSingleTrack(props: {
           EnableDisableSubmit(setDisable);
         }
       )}
-      {addInputwithLabel(
+      {addInputWithLabel(
         "Single Track Level",
         "Add Single Track Level",
         "SingleTrackLevel",
