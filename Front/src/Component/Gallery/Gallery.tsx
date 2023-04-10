@@ -12,7 +12,7 @@ export function Gallery(props: {
     | React.Dispatch<React.SetStateAction<Bike[]>>;
 }) {
   if (
-    props.galleryName.toLocaleLowerCase() ==
+    props.galleryName.toLocaleLowerCase() ===
     "Mountains Bikes Galley".toLocaleLowerCase()
   ) {
     return (

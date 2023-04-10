@@ -47,14 +47,16 @@ export interface ReceivedVoteBike {
   LogInTime: Date;
 }
 
-export class AddVoteBike {
+export class VoteBike {
   entranceId: number = 0;
+  user: User | undefined;
   BikeId: number = 0;
   Vote: number = 0;
   Comment: string = "";
 }
 export class AddVoteTrail {
   entranceId: number = 0;
+  user: User | undefined;
   TrailId: number = 0;
   Vote: number = 0;
   Comment: string = "";
@@ -79,6 +81,7 @@ export function sqlToJsDate(sqlDate: String) {
   //format of sqlDateArr3[] = ['hh','mm','ss.ms']
   var sHour = sqlDateArr3[0];
   var sMinute = sqlDateArr3[1];
+  console.log("sMinute=", sMinute);
   var sqlDateArr4 = sqlDateArr3[2].split(".");
   //format of sqlDateArr4[] = ['ss','ms']
   var sSecond = sqlDateArr4[0];

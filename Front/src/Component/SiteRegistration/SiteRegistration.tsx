@@ -156,7 +156,7 @@ function Registration() {
         handleSubmitImage(imageFormData)?.then((response) => {
           response.json().then((response) => {
             console.log("response=", response);
-            userImageUrl = `./${response.file
+            userImageUrl = `/../${response.file
               .split("public\\")[1]
               .replaceAll("\\", "/")}`;
             AddUser(

@@ -18,6 +18,7 @@ export function MyActivity(props: { userPerformLogIn: boolean }) {
       });
     }
   }, []);
+  console.log("activityArr", activityArr);
 
   if (props.userPerformLogIn === false) {
     return <h1>Log in is required to see the contents of the page</h1>;

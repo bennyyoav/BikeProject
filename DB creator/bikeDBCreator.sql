@@ -1,4 +1,4 @@
----close all user conection   to db except my connection
+﻿---close all user conection   to db except my connection
 SET NOCOUNT ON;
 USE master;
 GO
@@ -103,7 +103,7 @@ CREATE TABLE  VotesAndResponsesTrails
     entranceId int FOREIGN KEY REFERENCES dbo.Entrance(id),
     TrailId int FOREIGN KEY REFERENCES dbo.TrailsPictures(id),
 	Vote int NOT NULL CHECK (Vote>0 AND Vote<6),
-	Comment   varchar(255),
+	Comment   varchar(5000),
 );
 
 CREATE TABLE  VotesAndResponsesBikes
@@ -112,7 +112,7 @@ CREATE TABLE  VotesAndResponsesBikes
     entranceId int FOREIGN KEY REFERENCES dbo.Entrance(id),
     BikeId int FOREIGN KEY REFERENCES dbo.BikesPictures(id),
 	Vote int NOT NULL CHECK (Vote>0 AND Vote<6),
-	Comment   varchar(255),
+	Comment   varchar(5000),
 	
 );
 
@@ -123,7 +123,7 @@ GO
 /*----------Users--------------------------------*/
 INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl,score)VALUES ('Benny', 'Yoav','Benny',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png',100 );
 INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl,score)VALUES ('Jhone', 'Joe','Jhone',1234 ,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png',70);
-INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl,score)VALUES ('Hillel', 'Cohen','Hillel',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png',50 );
+INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl,score)VALUES ('Dana', 'Cohen','Dana',1234,'https://thumbs.dreamstime.com/b/hipster-girl-avatar-sunglasses-vector-illustration-design-145430747.jpg',50 );
 INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl,score)VALUES ('Dan', 'Levi','Hillel',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png',20 );
 INSERT INTO Users (FirstName,LastName,UserName,uPassword,imageUrl,score)VALUES ('Yitzhak', 'Bardugo','Yb',1234 ,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png',10);
 INSERT INTO Users VALUES ('Lucy', 'Mandes','17 Eshel st, Haifa','Am',1234,'https://www.vhv.rs/dpng/d/426-4263064_circle-avatar-png-picture-circle-avatar-image-png.png' ,10);
@@ -133,8 +133,8 @@ INSERT INTO Users VALUES ('Ehud', 'Barak','Harel 18 st, Tel aviv','Pm',1234,'htt
 /*----------Entrance--------------------------------*/
 
 
-INSERT INTO Entrance VALUES (1,'70-FF-CC-6A-DD-19','2000-12-01 07:12:33','2000-12-01 08:10:22');
-INSERT INTO Entrance VALUES (1,'70-FF-CC-6A-DD-19','2010-12-02 10:15:33','2010-12-02 11:18:24');
+INSERT INTO Entrance VALUES (3,'70-FF-CC-6A-DD-19','2000-12-01 07:12:33','2000-12-01 08:10:22');
+INSERT INTO Entrance VALUES (3,'70-FF-CC-6A-DD-19','2010-12-02 10:15:33','2010-12-02 11:18:24');
 INSERT INTO Entrance VALUES (1,'70-FF-CC-6A-DD-19','2015-12-03 20:22:56','2015-12-03 22:00:00');
 INSERT INTO Entrance VALUES (1,'70-FF-CC-6A-DD-19','2016-12-04 23:22:56','2016-12-04 23:40:00');
 INSERT INTO Entrance VALUES (1,'70-FF-CC-6A-DD-19','2017-12-05 22:22:56','2017-12-05 23:00:00');
@@ -196,7 +196,7 @@ INSERT INTO TrailsPictures VALUES (1,'Alon HaGalil','medium',
 
 /*---------- VotesAndResponsesTrails--------------------------------*/
 
-INSERT INTO VotesAndResponsesTrails VALUES (1,1,5,'I love this trail');
+INSERT INTO VotesAndResponsesTrails VALUES (7,1,5,'Amazing single ,Lunapark for adults');
 INSERT INTO VotesAndResponsesTrails VALUES (1,2,4,'I love this trail');
 INSERT INTO VotesAndResponsesTrails VALUES (2,3,5,'Surprising and amazing singel');	
 INSERT INTO VotesAndResponsesTrails VALUES (3,4,5,'It was very hard to me, but its is a good sport');	
@@ -210,12 +210,17 @@ INSERT INTO VotesAndResponsesTrails (EntranceId,TrailId,Vote,Comment) VALUES (17
 
 /*---------- VotesAndResponsesbikes--------------------------------*/
 
-INSERT INTO VotesAndResponsesBikes VALUES (1,1,5,'I love this bikes');
-INSERT INTO VotesAndResponsesBikes VALUES (1,2,4,'I love this bikes');
+INSERT INTO VotesAndResponsesBikes VALUES (1,1,5,'The Specialized Stumpjumper Comp shortlisted in the Trail Bike category of our 2022 Bike of the Year awards, is the cheapest carbon Stumpy in the range. There are also two alloy versions available for a chunk less cash.');
+INSERT INTO VotesAndResponsesBikes VALUES (1,2,4,'Rockhopper mountain bikes from Specialized are a common sighting on the trail. It is one of the most popular hardtail mountain bikes every year because of the many variations and price points. In this Specialized Rockhopper review I’ll break down the differences between all five models, as well as tire sizes available.
+The Specialized Rockhopper weight varies by model due to the weight differences between groupsets. It ranges from as light as 30.2 lbs for the Expert and at 32.7 lbs on the high end for the Expert.');
 INSERT INTO VotesAndResponsesBikes VALUES (2,3,5,'Surprising and amazing bikes');	
-INSERT INTO VotesAndResponsesBikes VALUES (3,4,5,'Excellent value for the price');	
+INSERT INTO VotesAndResponsesBikes VALUES (3,4,5,'If you’ve spent any time on a mountain bike in the past 40 years, there’s a good chance you’ve heard of the Specialized Stumpjumper. Introduced in 1981, it was the first mass-production mountain bike to hit the market, and while the design has changed a lot over the years (the original Stumpy was built with a welded steel frame that lacked suspension and cost $750), the fervor and versatility that gave rise to its success lives on.
+
+Today, the Stumpjumper isn’t one bike, but five—there’s the Alloy, Comp, Expert, Pro and S-Works models to choose from. The entry-level Alloy is the only aluminum frame in the mix, while the other four boast carbon frames. Each model is designed for different riding styles, trail types and budgets, but all maintain the same spirited, adaptable character that makes this ride a benchmark in the mountain bike category. Given its continued success, I rode the budget-friendly Stumpjumper Alloy on a number of popular trails in the Pacific Northwest to reflect on its abilities, and its legacy in a rapidly-evolving space.');	
 INSERT INTO VotesAndResponsesBikes (entranceId,BikeId,Vote) VALUES (7,4,2);
-INSERT INTO VotesAndResponsesBikes VALUES (8,1,5,'The bikes require a lot of maintenance');	
+INSERT INTO VotesAndResponsesBikes VALUES (7,1,5,'It can be easy to get hung up on the potential performance gains and improved ride quality of the latest and greatest bikes. At the top of the sport, you see the best riders winning races aboard the most cutting-edge bikes. Obviously, while much of the successes achieved by these riders are down to raw talent and dedication, it is hard not to be drawn in by the potential gains of having the best mountain bike. But is it worth investing more money when buying a bike to potentially steal a couple of extra seconds here and there?
+
+We’ve reviewed and loved the affordable Stumpjumper Evo Comp Alloy and the high spec Evo Expert Carbon, but is the cheapest carbon-framed option of the Stumpjumper Evo the sweet spot? We’ve been testing it against direct competitors and the Comp Alloy version on a wide range of trails and rides to find out.');	
 INSERT INTO VotesAndResponsesBikes VALUES (9,2,3,'The feeling of riding is uncomfortable');	
 INSERT INTO VotesAndResponsesBikes VALUES (12,3,5,'Agile and fast bikes despite full suspension');	
 INSERT INTO VotesAndResponsesBikes (entranceId,BikeId,Vote) VALUES (15,4,1);
@@ -280,7 +285,7 @@ AS
 	SET NOCOUNT ON;
 	SELECT firstName + ' '+ LastName FROM Users 
 GO
-/*--EXEC SelectAllUser;
+/*--EXEC GetAllUserNames;
 GO--*/
 
 /*------------------------------------------------------------------------------*/
@@ -294,8 +299,8 @@ AS
 	SELECT 'usersNum' = @usersNum ;
 
 GO
-EXEC GetNumberOfUsers;
-GO
+/*EXEC GetNumberOfUsers;
+GO*/
 /*------------------------------------------------------------------------------*/
 
 DROP PROCEDURE IF EXISTS dbo.GetAllVotesForBike;  
@@ -305,14 +310,17 @@ CREATE PROCEDURE GetAllVotesForBike @reqBikeId int
 AS
 	SET NOCOUNT ON;
 	SELECT  Users.firstName + '  ' + Users.LastName as FullName ,
-	VotesAndResponsesBikes.Vote, VotesAndResponsesBikes.Comment,Entrance.LogInTime
+	VotesAndResponsesBikes.Vote, VotesAndResponsesBikes.Comment,Entrance.LogInTime ,Entrance.id as entranceId
 	FROM VotesAndResponsesBikes  INNER JOIN Entrance
 	on VotesAndResponsesBikes.entranceId= Entrance.id INNER JOIN Users
 	on Entrance.userId= Users.id
 	Where @reqBikeId = VotesAndResponsesBikes.BikeId
 GO
-/* --EXEC GetAllVotesForBike @reqBikeId = 1;
-GO--*/
+
+
+
+/*EXEC GetAllVotesForBike @reqBikeId = 1;
+GO*/
 /*--------------------------------------------------------------------------*/
 
 DROP PROCEDURE IF EXISTS dbo.GetNumberOfVotesForBike;  
@@ -331,8 +339,8 @@ AS
 	)
 	SELECT 'NumberOfVote' = @NumberOfVotes ;
 	GO
-EXEC GetNumberOfVotesForBike @reqBikeId = 1;
-GO
+/*EXEC GetNumberOfVotesForBike @reqBikeId = 1;
+GO*/
 /*--------------------------------------------------------------------------*/
 DROP PROCEDURE IF EXISTS dbo.GetNumberOfVotesForTrail;  
 GO  
@@ -350,8 +358,8 @@ AS
 	)
 	SELECT 'NumberOfVote' = @NumberOfVotes ;
 	GO
-EXEC GetNumberOfVotesForTrail @reqTrailID = 1;
-GO
+/*EXEC GetNumberOfVotesForTrail @reqTrailID = 1;
+GO*/
 
 
 
@@ -364,13 +372,13 @@ CREATE PROCEDURE GetAllVotesForTrail @reqTrailId int
 AS
 	SET NOCOUNT ON;
 	SELECT  Users.firstName + '  ' + Users.LastName as FullName ,
-	VotesAndResponsesTrails.Vote, VotesAndResponsesTrails.Comment,Entrance.LogInTime 
+	VotesAndResponsesTrails.Vote, VotesAndResponsesTrails.Comment,Entrance.LogInTime ,Entrance.id as entranceId
 	FROM VotesAndResponsesTrails  INNER JOIN Entrance
 	on VotesAndResponsesTrails.entranceId= Entrance.id INNER JOIN Users
 	on Entrance.userId= Users.id
 	Where @reqTrailId = VotesAndResponsesTrails.TrailId
 GO
-/*--EXEC GetAllVotesForTrail @reqTrailId=3;
+/*EXEC GetAllVotesForTrail @reqTrailId=3;
 GO--*/
 /*--------------------------------------------------------------------------*/
 
@@ -411,8 +419,8 @@ BEGIN--start batch
       SELECT SCOPE_IDENTITY() as EntranceID --returns the last identity value generated for any table in the current session and the current scope
 END
 GO
-/*EXEC AddEntrence @macAddress='70-FF-CC-6A-DD-19', @userId =1;
-GO--*/
+EXEC AddEntrance @macAddress='70-FF-CC-6A-DD-19', @userId =1;
+GO
 
 /*--------------------------------------------------------------------------*/
 
@@ -522,15 +530,16 @@ AS
 	(
 		fullNmae varchar(255),
 		Vote int ,
-		Comment  varchar(255),
-		LoginTime datetime
+		Comment  varchar(5000),
+		LoginTime datetime,
+		entranceId int
 	)
 	INSERT INTO @tempTable  EXEC  GetAllVotesForBike @reqBikeId = @reqBikeId
 	SELECT AVG(Vote)  as  bikeAverageGrade from @tempTable
 	
 Go
-/*EXEC  GetAverageGradingBike @reqBikeId = 7
-Go*/
+EXEC  GetAverageGradingBike @reqBikeId = 7
+Go
 /*--------------------------------------------------------------------------*/	
 DROP PROCEDURE IF EXISTS GetAverageGradingTrail
 GO
@@ -542,14 +551,15 @@ AS
 	(
 		fullNmae varchar(255),
 		Vote int ,
-		Comment  varchar(255),
-		LoginTime datetime
+		Comment  varchar(5000),
+		LoginTime datetime,
+		entranceId int
 	)
 	INSERT INTO @tempTable  EXEC  GetAllVotesForTrail @reqTrailId = @reqTrailId
 	SELECT ROUND(AVG(Vote),2,1) as  TrailAverageGrade from @tempTable as  AverageGrade
 Go
-/*EXEC  GetAverageGradingTrail @reqTrailId = 4
-Go*/
+EXEC  GetAverageGradingTrail @reqTrailId = 4
+Go
 /*--------------------------------------------------------------------------*/	
 DROP PROCEDURE IF EXISTS GetAllActivityOfUser
 GO
@@ -623,7 +633,7 @@ AS
 	on Entrance.UserId = USERS.id
 	Where (@UserId = Users.id AND Entrance.LogOutTime is NOT NULL )
 	
-	SELECT fullNmae,activity,FORMAT(activity_time, ' HH:M  dd-MM-yyyy') as time   FROM @tempTable order by activity_time, orderNunber
+	SELECT fullNmae,activity,FORMAT(activity_time, ' HH:mm  dd-MM-yyyy') as time   FROM @tempTable order by activity_time, orderNunber
 
 GO
  EXEC GetAllActivityOfUser 1;
@@ -724,7 +734,6 @@ CREATE PROCEDURE GetUserByEntranceId
 AS
 	SET NOCOUNT ON;
 
-
 	
 	SELECT Users.UserName,
 	Users.imageUrl,
@@ -732,25 +741,17 @@ AS
 	
 	FROM Users 	 RIGHT JOIN Entrance
 	on Users.id= Entrance.UserId
-	where @entranceId=Users.id
+	where @entranceId=Entrance.id
 	GROUP BY  Users.UserName,Users.imageUrl,Users.score
 
 GO
-EXEC GetUserByEntranceId 5
+EXEC GetUserByEntranceId 15
 GO
 
 
 
 
-
-
-
-
-
-
-
-
-
+/*-----------------------------------------------------------------------*/
 
 
 
@@ -791,8 +792,8 @@ AS
 		SELECT 'ans' = @ans;
 GO
 
-EXEC AddVoteAndResponseBike 1,1,5,'I love this trail';
-GO
+/*EXEC AddVoteAndResponseBike 2,1,5,'I love this Bikes';
+GO*/
 /*--------------------------------------------------------------------------*/	
 DROP PROCEDURE IF EXISTS AddVoteAndResponseTrial
 GO

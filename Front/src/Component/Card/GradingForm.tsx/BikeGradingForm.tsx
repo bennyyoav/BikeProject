@@ -8,7 +8,7 @@ import {
   AddVoteAndResponseBike,
   GetBikes,
 } from "../../../GetAndUpdateDataFromFront/GetAndUpdateDataFromBack";
-import { AddVoteBike } from "../../../GetAndUpdateDataFromFront/dbClasses";
+import { VoteBike } from "../../../GetAndUpdateDataFromFront/dbClasses";
 export function BikeGradingForm(props: {
   indexAtArr: number;
   theBike: Bike;
@@ -54,7 +54,7 @@ export function BikeGradingForm(props: {
         <button
           className="VoteButton"
           onClick={() => {
-            let addVoteBike = new AddVoteBike();
+            let addVoteBike = new VoteBike();
             addVoteBike.entranceId = +(
               document.querySelector("#NavBarAdapter") as HTMLElement
             ).getAttribute("entrance_id")!;

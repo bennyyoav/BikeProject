@@ -5,7 +5,7 @@ import {
   sqlToJsDate,
   User,
   ReceivedVoteBike,
-  AddVoteBike,
+  VoteBike,
   Activity,
   AddVoteTrail,
 } from "./dbClasses";
@@ -57,10 +57,10 @@ export const GetAllVotesForTrail = (trailId: number) => {
 };
 
 //===============================================================================
-export const GetAllVotesForBike = (trailId: number) => {
+export const GetAllVotesForBike = (bikeId: number) => {
   return postData(
-    `http://${BACK_SERVER}/users/GetAllVotesForBike/${trailId}`,
-    `GetAllVotesForTrail id ${trailId}`,
+    `http://${BACK_SERVER}/users/GetAllVotesForBike/${bikeId}`,
+    `GetAllVotesForBike id ${bikeId}`,
     ResponseToGetAllVotesForBike
   );
 };
@@ -205,7 +205,7 @@ export const GetNumberOfVoteTrail = (trailId: number) => {
 };
 //=========================================================
 
-export const AddVoteAndResponseBike = (Vote: AddVoteBike) => {
+export const AddVoteAndResponseBike = (Vote: VoteBike) => {
   return postData(
     `http://${BACK_SERVER}/users/AddVoteAndResponseBike/`,
     `Add vote and response bike ${Vote.BikeId}`,
@@ -313,11 +313,11 @@ function ResponseToGetAllVotesForTrail(votes: ReceivedVoteBike[]) {
 }
 
 function ResponseToGetAllVotesForBike(votes: ReceivedVoteBike[]) {
-  console.log(`All Votes For Trail`);
+  console.log(`All Votes For Bike`);
   votes.forEach((vote) => {
     console.log(`${JSON.stringify(vote)}`);
     console.log(
-      ` ${vote.Vote} ${vote.LogInTime} ${vote.FullName} ${vote.Comment}`
+      `${vote.Vote} ${vote.LogInTime} ${vote.FullName} ${vote.Comment}`
     );
   });
   return votes;
