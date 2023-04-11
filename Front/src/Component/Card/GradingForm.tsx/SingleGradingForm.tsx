@@ -3,7 +3,7 @@ import { GiMountainCave } from "react-icons/gi";
 import "./GradingForm.css";
 import Collapsible from "react-collapsible";
 import { Trail } from "../../../SingleTrack";
-import { AddVoteTrail } from "../../../GetAndUpdateDataFromFront/dbClasses";
+import { VoteTrail } from "../../../GetAndUpdateDataFromFront/dbClasses";
 import {
   AddVoteAndResponseTrail,
   GetTrails,
@@ -63,7 +63,7 @@ export function SingleGradingForm(props: {
           <button
             className="VoteButton"
             onClick={() => {
-              let addVoteTrail = new AddVoteTrail();
+              let addVoteTrail = new VoteTrail();
               addVoteTrail.entranceId = +(
                 document.querySelector("#NavBarAdapter") as HTMLElement
               ).getAttribute("entrance_id")!;
@@ -91,6 +91,7 @@ export function SingleGradingForm(props: {
                     console.log(JSON.stringify(ans));
                     props.setCarrArr(ans);
                     UpdateNavBarScore(10);
+                    setHasUserVoteToTrail(true);
                   });
                 }
               });

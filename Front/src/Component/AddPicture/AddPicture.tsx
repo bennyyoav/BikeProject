@@ -6,11 +6,14 @@ import { Trail } from "../../SingleTrack";
 import {
   AddBike,
   AddScoreToUserByUserID,
+  AddTrail,
   AddVoteAndResponseBike,
+  AddVoteAndResponseTrail,
   GetBikes,
+  GetTrails,
 } from "../../GetAndUpdateDataFromFront/GetAndUpdateDataFromBack";
 import { UpdateNavBarScore } from "../Card/GradingForm.tsx/BikeGradingForm";
-import { VoteBike } from "../../GetAndUpdateDataFromFront/dbClasses";
+import { VoteBike, VoteTrail } from "../../GetAndUpdateDataFromFront/dbClasses";
 
 function EnableDisableSubmit(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>
@@ -27,21 +30,23 @@ function EnableDisableSubmit(
       console.log(input.name);
       validityCheck = false;
     }
+    return 1; //return only to quite the warning
   });
   validityCheck === true ? setDisable(false) : setDisable(true);
 }
 
 function CleanForm(setDisable: React.Dispatch<React.SetStateAction<boolean>>) {
-  let validityCheck: boolean = true;
   let inputs = document.querySelectorAll("input"); //return node list
   let inputsArr = Array.from(inputs);
   inputsArr.map((input) => {
     input.value = "";
+    return 1; //return only to quite the warning
   });
   let selects = document.querySelectorAll("select");
   let selectorArr = Array.from(selects);
   selectorArr.map((input) => {
     input.value = "1";
+    return 1; //return only to quite the warning
   });
   setDisable(true);
 }
@@ -201,6 +206,14 @@ export function AddPictureFormSingleTrack(props: {
           EnableDisableSubmit(setDisable);
         }
       )}
+      {addInputWithLabel(
+        "Trail Comment",
+        "Add Bike Trail",
+        "TrailComment",
+        () => {
+          EnableDisableSubmit(setDisable);
+        }
+      )}
       <div className="inputClass">
         <label>Single Grade</label>
         <select name="SingleTrackGrade" className="SingleTrackGrade">
@@ -216,36 +229,49 @@ export function AddPictureFormSingleTrack(props: {
         value="Submit"
         disabled={disable}
         onClick={(event) => {
-          let grade = +(
-            document.querySelector(".SingleTrackGrade") as HTMLInputElement
-          ).value;
-          let newSingleTrack = [
-            ...props.galleryCards,
-            {
-              TrailName: `${
-                (document.querySelector(".SingleTrackName") as HTMLInputElement)
-                  .value
-              }`,
-              PathToPicture: `${
-                (document.querySelector(".SingleTrackUrl") as HTMLInputElement)
-                  .value
-              }`,
-              TrailLevel: `${
-                (
-                  document.querySelector(
-                    ".SingleTrackLevel"
-                  ) as HTMLInputElement
-                ).value
-              }`,
-              grade: grade,
-              voters: 1,
-              EntranceId: 1,
-            },
-          ];
-          console.log(newSingleTrack);
-          props.setGalleryCard(newSingleTrack);
-          setDisable(true);
-          CleanForm(setDisable);
+          let gradeFromSelector = document.querySelector(
+            ".SingleTrackGrade"
+          ) as HTMLSelectElement;
+          let grade = +gradeFromSelector.value;
+          let NameInput = document.querySelector(
+            ".SingleTrackName"
+          ) as HTMLInputElement;
+          let pictureInput = document.querySelector(
+            ".SingleTrackUrl"
+          ) as HTMLInputElement;
+          let SingleTrackLevel = document.querySelector(
+            ".SingleTrackLevel"
+          ) as HTMLInputElement;
+          let TrailComment = document.querySelector(
+            ".TrailComment"
+          ) as HTMLInputElement;
+          console.log("TrailComment", TrailComment.value);
+          let entranceId = +(
+            document.querySelector("#NavBarAdapter") as HTMLElement
+          ).getAttribute("entrance_id")!;
+          const user_id = (
+            document.querySelector("#NavBarAdapter") as HTMLElement
+          ).getAttribute("user_id")!;
+          AddTrail(
+            entranceId,
+            NameInput.value,
+            SingleTrackLevel.value,
+            pictureInput.value
+          ).then((ans) => {
+            let voteTrail = new VoteTrail();
+            voteTrail.entranceId = entranceId;
+            voteTrail.TrailId = ans.trailId;
+            voteTrail.Vote = grade;
+            voteTrail.Comment = TrailComment.value;
+            AddVoteAndResponseTrail(voteTrail).then(() => {
+              GetTrails().then((ans) => {
+                props.setGalleryCard(ans);
+                CleanForm(setDisable);
+              });
+            });
+            AddScoreToUserByUserID(user_id, 20);
+            UpdateNavBarScore(20); //to see the diff without out and in
+          });
         }}
       />
     </div>

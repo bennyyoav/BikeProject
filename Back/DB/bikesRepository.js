@@ -87,6 +87,34 @@ const addBike = async (req,res) => {
 }
 module.exports.addBike = addBike;
 
+
+
+const AddTrail = async (req,res) => {
+    try
+     {
+        console.log("at AddTrail");
+        console.log(req.body)
+        let pool = await mssql.connect(sqlConfig);
+        let reqRes = await pool.request()
+        .input('entranceId', mssql.Int, req.body.entranceId)
+        .input('TrailName', mssql.VarChar(255), req.body.TrailName )
+        .input('TrailLevel', mssql.VarChar(255), req.body.TrailLevel )
+        .input('PathToPicture', mssql.VarChar(255), req.body.PathToPicture )
+        .execute('AddTrail');
+        res.send (reqRes.recordset);
+        
+    } 
+    catch (err) 
+    {
+        console.log("there was an error while sending Query to DB: ", err);
+        res.send(err)
+    }
+
+}
+
+
+module.exports.AddTrail = AddTrail;
+
 const UpdateEntranceLogOutTime = async (req,res) => {
     try
      {

@@ -26,7 +26,7 @@ router.get("/activity/:userId",bikesRepository.getUserActivity);
 
 router.post("/AddBike/",bikesRepository.addBike);
 
- 
+router.post("/AddTrail/",bikesRepository.AddTrail);
 router.post("/addEntrance/",bikesRepository.addEntrance);
 
 router.post("/UpdateEntranceLogOutTime/:EntranceId",bikesRepository.UpdateEntranceLogOutTime);

@@ -7,7 +7,7 @@ import {
   ReceivedVoteBike,
   VoteBike,
   Activity,
-  AddVoteTrail,
+  VoteTrail,
 } from "./dbClasses";
 
 const BACK_SERVER = "localhost";
@@ -122,6 +122,34 @@ export const AddBike = (
 };
 //======================================================================================
 
+export const AddTrail = (
+  entranceId: number,
+  trailName: string,
+  trailLevel: string,
+  pathToPicture: string
+
+  //func: (arg: any) => any = ResponseToAddEntrance
+) => {
+  let Trail = {
+    entranceId: entranceId,
+    TrailName: trailName,
+    TrailLevel: trailLevel,
+    PathToPicture: pathToPicture,
+  };
+  return postData(
+    `http://${BACK_SERVER}/users/AddTrail/`,
+    `Add new Bike ${JSON.stringify(Trail)}`,
+    (ans) => {
+      console.log(`Add User result`);
+      console.log(`${JSON.stringify(ans[0])}`);
+      return ans[0];
+    },
+    "POST",
+    Trail
+  );
+};
+
+//===================================================================================================
 export const UpdateEntranceLogOutTime = (EntranceID: Number) => {
   console.log(
     `http://${BACK_SERVER}/users/UpdateEntranceLogOutTime/${EntranceID}`
@@ -245,7 +273,7 @@ export const AddVoteAndResponseBike = (Vote: VoteBike) => {
 
 //=========================================================
 
-export const AddVoteAndResponseTrail = (Vote: AddVoteTrail) => {
+export const AddVoteAndResponseTrail = (Vote: VoteTrail) => {
   return postData(
     `http://${BACK_SERVER}/users/AddVoteAndResponseTrail/`,
     `Add vote and response bike ${Vote.TrailId}`,

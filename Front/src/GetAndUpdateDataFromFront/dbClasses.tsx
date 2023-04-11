@@ -54,7 +54,7 @@ export class VoteBike {
   Vote: number = 0;
   Comment: string = "";
 }
-export class AddVoteTrail {
+export class VoteTrail {
   entranceId: number = 0;
   user: User | undefined;
   TrailId: number = 0;
