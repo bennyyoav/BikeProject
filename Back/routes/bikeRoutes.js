@@ -23,6 +23,9 @@ dotenv.config();
 
 // Get all user
 router.get("/activity/:userId",bikesRepository.getUserActivity);
+
+router.post("/AddBike/",bikesRepository.addBike);
+
  
 router.post("/addEntrance/",bikesRepository.addEntrance);
 

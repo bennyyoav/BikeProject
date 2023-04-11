@@ -94,6 +94,34 @@ export const addEntrance = (
 };
 //======================================================================================
 
+export const AddBike = (
+  entranceId: number,
+  bikeName: string,
+  bikeManufacturer: string,
+  pathToPicture: string
+
+  //func: (arg: any) => any = ResponseToAddEntrance
+) => {
+  let Bike = {
+    entranceId: entranceId,
+    BikeName: bikeName,
+    BikeManufacturer: bikeManufacturer,
+    PathToPicture: pathToPicture,
+  };
+  return postData(
+    `http://${BACK_SERVER}/users/AddBike/`,
+    `Add new Bike ${JSON.stringify(Bike)}`,
+    (ans) => {
+      console.log(`Add User result`);
+      console.log(`${JSON.stringify(ans[0])}`);
+      return ans[0];
+    },
+    "POST",
+    Bike
+  );
+};
+//======================================================================================
+
 export const UpdateEntranceLogOutTime = (EntranceID: Number) => {
   console.log(
     `http://${BACK_SERVER}/users/UpdateEntranceLogOutTime/${EntranceID}`

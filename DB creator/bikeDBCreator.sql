@@ -82,7 +82,7 @@ CREATE TABLE Entrance
 CREATE TABLE BikesPictures
  (
     id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    EntranceId int FOREIGN KEY REFERENCES dbo.Users(id),
+    EntranceId int FOREIGN KEY REFERENCES dbo.Entrance(id),
     BikeName  varchar(255) NOT NULL,
     BikeManufacturer   varchar(255)NOT NULL,
 	PathToPicture  varchar(255) NOT NULL
@@ -91,7 +91,7 @@ CREATE TABLE BikesPictures
 CREATE TABLE  TrailsPictures
  (
     id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    EntranceId int FOREIGN KEY REFERENCES dbo.Users(id),
+    EntranceId int FOREIGN KEY REFERENCES dbo.Entrance(id),
     TrailName    varchar(255) NOT NULL,
     TrailLevel     varchar(255)NOT NULL,
 	PathToPicture  varchar(255) NOT NULL
@@ -222,7 +222,7 @@ INSERT INTO VotesAndResponsesBikes VALUES (7,1,5,'It can be easy to get hung up 
 
 We’ve reviewed and loved the affordable Stumpjumper Evo Comp Alloy and the high spec Evo Expert Carbon, but is the cheapest carbon-framed option of the Stumpjumper Evo the sweet spot? We’ve been testing it against direct competitors and the Comp Alloy version on a wide range of trails and rides to find out.');	
 INSERT INTO VotesAndResponsesBikes VALUES (9,2,3,'The feeling of riding is uncomfortable');	
-INSERT INTO VotesAndResponsesBikes VALUES (12,3,5,'Agile and fast bikes despite full suspension');	
+INSERT INTO VotesAndResponsesBikes VALUES (13,3,5,'Agile and fast bikes despite full suspension');	
 INSERT INTO VotesAndResponsesBikes (entranceId,BikeId,Vote) VALUES (15,4,1);
 INSERT INTO VotesAndResponsesBikes (entranceId,BikeId,Vote) VALUES (16,1,3);
 INSERT INTO VotesAndResponsesBikes (entranceId,BikeId,Vote,Comment) VALUES (18,3,5,'The best purchase I have made. I recommend it to anyone who can afford it');
@@ -262,7 +262,7 @@ AS
 
 	SELECT 'ans' = @ans;
 Go
-EXEC CheckPassword "benny", 1234
+EXEC CheckPassword "benny28", 'AAA'
 /*---------------------------------------------------------------------------*/
 DROP PROCEDURE IF EXISTS dbo.GetUserByUserName 
 GO  
@@ -494,8 +494,8 @@ AS
 	SELECT 'ans' = @ans;
 Go
 
-/*---EXEC HasUserVoteToBIke @userID =2, @BikeId=1 
-Go--*/
+EXEC HasUserVoteToBIke @userID =1, @BikeId=4
+Go
 /*--------------------------------------------------------------------------*/	
 
 DROP PROCEDURE IF EXISTS HasUserVoteToTRail
@@ -516,8 +516,8 @@ AS
 	end
 	SELECT 'ans' = @ans;
 GO
-EXEC HasUserVoteToTRail @userID =2, @trailId = 1
-Go
+/*EXEC HasUserVoteToTRail @userID =1, @trailId = 2
+Go*/
 		
 /*--------------------------------------------------------------------------*/		
 DROP PROCEDURE IF EXISTS GetAverageGradingBike
@@ -723,10 +723,6 @@ GO
 
 /*--------------------------------------------------------------------------*/	
 
-
-
-
-
 DROP PROCEDURE IF EXISTS GetUserByEntranceId
 GO
 CREATE PROCEDURE GetUserByEntranceId 
@@ -752,8 +748,6 @@ GO
 
 
 /*-----------------------------------------------------------------------*/
-
-
 
 
 DROP PROCEDURE IF EXISTS GetAllTrials
@@ -812,6 +806,39 @@ AS
 		SELECT 'ans' = @ans;
 GO
 
-EXEC AddVoteAndResponseTrial 5,1,5,'I love this trail';
-GO
+/*EXEC AddVoteAndResponseTrial 5,1,5,'I love this trail';
+GO*/
 /*--------------------------------------------------------------------------*/	
+DROP PROCEDURE IF EXISTS AddBike
+GO
+CREATE PROCEDURE AddBike 
+		@entranceId  int,
+		@BikeName    varchar(255),
+		@BikeManufacturer varchar(255),
+		@PathToPicture    varchar(255)
+AS	
+	SET NOCOUNT ON;
+		  INSERT INTO BikesPictures (EntranceId,BikeName,BikeManufacturer,PathToPicture)
+		  VALUES (@entranceId, @BikeName ,@BikeManufacturer, @PathToPicture)
+		 DECLARE @ans int;
+		SELECT SCOPE_IDENTITY() as bikeID --returns the last identity value generated for any table in the current session and the current scope
+GO
+EXEC AddBike 21,'Epic 2019','specilaized','https://i.ytimg.com/vi/UnfoF6Yb_uY/maxresdefault.jpg'
+GO
+/*--------------------------------------------------------------------------*/
+DROP PROCEDURE IF EXISTS AddTrail
+GO
+CREATE PROCEDURE AddTrail 
+		@entranceId  int,
+		@TrailName    varchar(255),
+		@TrailLevel varchar(255),
+		@PathToPicture    varchar(255)
+AS	
+	SET NOCOUNT ON;
+		  INSERT INTO TrailsPictures 
+		  VALUES (@entranceId, @TrailName ,@TrailLevel, @PathToPicture)
+		DECLARE @ans int;
+		SELECT SCOPE_IDENTITY() as bikeID --returns the last identity value generated for any table in the current session and the current scope
+
+/*EXEC AddTrail 1,'haSolelim','easy','https://th.bing.com/th/id/R.7c328e4b5445dc379c4c54e308b98d09?rik=ZXXrGwuL66mPow&pid=ImgRaw&r=0'
+GO*/ 

@@ -63,6 +63,29 @@ const addEntrance = async (req,res) => {
 }
 module.exports.addEntrance = addEntrance;
 
+const addBike = async (req,res) => {
+    try
+     {
+        console.log("at addBike");
+        console.log(req.body)
+        let pool = await mssql.connect(sqlConfig);
+        let reqRes = await pool.request()
+        .input('entranceId', mssql.Int, req.body.entranceId)
+        .input('BikeName', mssql.VarChar(255), req.body.BikeName )
+        .input('BikeManufacturer', mssql.VarChar(255), req.body.BikeManufacturer )
+        .input('PathToPicture', mssql.VarChar(255), req.body.PathToPicture )
+        .execute('AddBike');
+        res.send (reqRes.recordset);
+        
+    } 
+    catch (err) 
+    {
+        console.log("there was an error while sending Query to DB: ", err);
+        res.send(err)
+    }
+
+}
+module.exports.addBike = addBike;
 
 const UpdateEntranceLogOutTime = async (req,res) => {
     try

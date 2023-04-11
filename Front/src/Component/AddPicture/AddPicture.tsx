@@ -3,6 +3,14 @@ import "./AddPicture.css";
 import React from "react";
 import { Bike } from "../../Bike";
 import { Trail } from "../../SingleTrack";
+import {
+  AddBike,
+  AddScoreToUserByUserID,
+  AddVoteAndResponseBike,
+  GetBikes,
+} from "../../GetAndUpdateDataFromFront/GetAndUpdateDataFromBack";
+import { UpdateNavBarScore } from "../Card/GradingForm.tsx/BikeGradingForm";
+import { VoteBike } from "../../GetAndUpdateDataFromFront/dbClasses";
 
 function EnableDisableSubmit(
   setDisable: React.Dispatch<React.SetStateAction<boolean>>
@@ -85,6 +93,14 @@ export function AddPictureFormBike(props: {
           EnableDisableSubmit(setDisable);
         }
       )}
+      {addInputWithLabel(
+        "Bike Comment",
+        "Add Bike Comment",
+        "BikeComment",
+        () => {
+          EnableDisableSubmit(setDisable);
+        }
+      )}
 
       <div className="inputClass">
         <label>Bike Grade</label>
@@ -114,21 +130,36 @@ export function AddPictureFormBike(props: {
           let manufacturerInput = document.querySelector(
             ".BikeManufacturer"
           ) as HTMLInputElement;
-
-          let newBike = [
-            ...props.galleryCards,
-            {
-              id: -1, //todo
-              BikeName: `${NameInput.value}`,
-              PathToPicture: `${pictureInput.value}`,
-              BikeManufacturer: `${manufacturerInput.value}`,
-              grade: grade,
-              voters: 1,
-              EntranceId: 1,
-            },
-          ];
-          props.setGalleryCard(newBike);
-          CleanForm(setDisable);
+          let BikeComment = document.querySelector(
+            ".BikeComment"
+          ) as HTMLInputElement;
+          console.log("BikeComment", BikeComment.value);
+          let entranceId = +(
+            document.querySelector("#NavBarAdapter") as HTMLElement
+          ).getAttribute("entrance_id")!;
+          const user_id = (
+            document.querySelector("#NavBarAdapter") as HTMLElement
+          ).getAttribute("user_id")!;
+          AddBike(
+            entranceId,
+            NameInput.value,
+            manufacturerInput.value,
+            pictureInput.value
+          ).then((ans) => {
+            let voteBike = new VoteBike();
+            voteBike.entranceId = entranceId;
+            voteBike.BikeId = ans.bikeID;
+            voteBike.Vote = grade;
+            voteBike.Comment = BikeComment.value;
+            AddVoteAndResponseBike(voteBike).then(() => {
+              GetBikes().then((ans) => {
+                props.setGalleryCard(ans);
+                CleanForm(setDisable);
+              });
+            });
+            AddScoreToUserByUserID(user_id, 20);
+            UpdateNavBarScore(20); //to see the diff without out and in
+          });
         }}
       />
     </div>
@@ -147,9 +178,9 @@ export function AddPictureFormSingleTrack(props: {
       </h4>
 
       {addInputWithLabel(
-        "Singel Track Url",
+        "Single Track Url",
         "Add Single picture Url",
-        "SingelTrackUrl",
+        "SingleTrackUrl",
         () => {
           EnableDisableSubmit(setDisable);
         }
@@ -196,7 +227,7 @@ export function AddPictureFormSingleTrack(props: {
                   .value
               }`,
               PathToPicture: `${
-                (document.querySelector(".SingelTrackUrl") as HTMLInputElement)
+                (document.querySelector(".SingleTrackUrl") as HTMLInputElement)
                   .value
               }`,
               TrailLevel: `${
