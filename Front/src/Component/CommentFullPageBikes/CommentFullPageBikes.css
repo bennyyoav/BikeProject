@@ -1,0 +1,78 @@
+#votes
+{
+   
+   
+    align-items: center;
+    margin: 0;
+    background-image: linear-gradient(rgb(136, 217, 136), rgb(243, 243, 140));
+    border-color: aquamarine;
+    padding:10px;
+   
+}
+
+
+.userVote
+{
+    border: solid black 2px;
+    border-radius: 3px;
+ 
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    background-color: white;
+   
+
+}
+
+#bikeImage
+{
+    width: 650px;
+    border: 10px solid #ddd;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 5px;
+}
+#uploadUserImage
+{
+    width: 100px;
+    border: 10px solid #ddd;
+    border-radius: 70px;
+    margin: 5px;
+    padding: 5px;
+}
+.voterImage 
+{
+    width: 80px;
+    min-height: 50px; 
+    border: 3px solid  rgb(90, 117, 90);
+    border-radius: 20px;
+    padding: 5px;
+
+    
+}
+.user
+{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+    align-items: center;
+    background-image: linear-gradient(rgb(52, 155, 155), rgb(243, 243, 140));
+    /* background-color: linear-gradient (rgb(52, 155, 155)  rgb(243, 243, 140)); */
+    margin-bottom: 10px;
+  
+}
+.comment
+{
+    display: flex;
+   text-align: left; 
+   padding-left: 20px;
+}
+.stars 
+{
+    display: flex;
+
+    justify-content: right;
+  
+}
