@@ -6,6 +6,7 @@ ALTER DATABASE BikeDB
 SET SINGLE_USER 
 WITH ROLLBACK IMMEDIATE;
 GO
+
 DROP DATABASE BikeDB;
 ------------------------------------------
 
@@ -118,6 +119,9 @@ CREATE TABLE  VotesAndResponsesBikes
 
 GO
 
+
+
+
 /* ------------------------ Insert Data into Tables -------------------- */
 
 /*----------Users--------------------------------*/
@@ -201,7 +205,7 @@ INSERT INTO VotesAndResponsesTrails VALUES (1,2,4,'I love this trail');
 INSERT INTO VotesAndResponsesTrails VALUES (2,3,5,'Surprising and amazing singel');	
 INSERT INTO VotesAndResponsesTrails VALUES (3,4,5,'It was very hard to me, but its is a good sport');	
 INSERT INTO VotesAndResponsesTrails (entranceId,TrailId,Vote) VALUES (7,4,2);
-INSERT INTO VotesAndResponsesTrails VALUES (8,1,5,'It was very hard to me, but its is a good sport');	
+INSERT INTO VotesAndResponsesTrails VALUES (11,1,5,'It was very hard to me, but its is a good sport');	
 INSERT INTO VotesAndResponsesTrails VALUES (9,2,5,'It was very hard to me, but its is a good sport');	
 INSERT INTO VotesAndResponsesTrails VALUES (12,3,5,'It was very hard to me, It has an amazing view');	
 INSERT INTO VotesAndResponsesTrails (EntranceId,TrailId,Vote) VALUES (15,4,2);
@@ -823,8 +827,8 @@ AS
 		 DECLARE @ans int;
 		SELECT SCOPE_IDENTITY() as bikeID --returns the last identity value generated for any table in the current session and the current scope
 GO
-EXEC AddBike 21,'Epic 2019','specilaized','https://i.ytimg.com/vi/UnfoF6Yb_uY/maxresdefault.jpg'
-GO
+/*EXEC AddBike 21,'Epic 2019','specilaized','https://i.ytimg.com/vi/UnfoF6Yb_uY/maxresdefault.jpg'
+GO*/
 /*--------------------------------------------------------------------------*/
 DROP PROCEDURE IF EXISTS AddTrail
 GO
@@ -838,7 +842,7 @@ AS
 		  INSERT INTO TrailsPictures 
 		  VALUES (@entranceId, @TrailName ,@TrailLevel, @PathToPicture)
 		DECLARE @ans int;
-		SELECT SCOPE_IDENTITY() as bikeID --returns the last identity value generated for any table in the current session and the current scope
+		SELECT SCOPE_IDENTITY() as trailId --returns the last identity value generated for any table in the current session and the current scope
 
 /*EXEC AddTrail 1,'haSolelim','easy','https://th.bing.com/th/id/R.7c328e4b5445dc379c4c54e308b98d09?rik=ZXXrGwuL66mPow&pid=ImgRaw&r=0'
 GO*/ 
